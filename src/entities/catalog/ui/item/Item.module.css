@@ -1,0 +1,21 @@
+.book {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	@media screen and (max-width: 414px) {
+		grid-template-columns: 135px 1fr;
+	}
+}
+
+.bookImage {
+	background-size: cover;
+	box-shadow: 0px 24px 36px 0px rgba(53, 49, 84, 0.28);
+	min-height: 300px;
+	max-height: 330px;
+	overflow: hidden;
+
+	@media screen and (max-width: 414px) {
+		min-height: 200px;
+		max-height: 200px;
+	}
+}

@@ -1,0 +1,24 @@
+.wrap {
+	padding-top: 134px;
+	left: 0;
+	width: 100vw;
+	max-width: 100%;
+
+	@media screen and (max-width: 1139px) {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+
+	@media screen and (max-width: 650px) {
+		padding-top: 16px;
+	}
+}
+
+.catalog {
+	display: grid;
+	grid-template-columns: 196px 1fr;
+
+	@media screen and (max-width: 650px) {
+		grid-template-columns: 1fr;
+	}
+}

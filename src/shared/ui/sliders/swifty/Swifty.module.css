@@ -1,0 +1,12 @@
+.slider {
+	--dot-color: lightgray;
+	--dot-active-color: #9e98dc;
+
+	display: flex;
+	flex-direction: column;
+	color: var(--color-white);
+	width: 100%;
+	gap: 17px;
+	overflow: hidden;
+	position: relative;
+}

@@ -1,0 +1,14 @@
+.rating {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.stars {
+	display: flex;
+	gap: 1px;
+}
+
+.reviews {
+	@mixin textGray 10px;
+}
