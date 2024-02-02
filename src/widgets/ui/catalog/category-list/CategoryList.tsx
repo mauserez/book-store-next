@@ -1,4 +1,4 @@
-import { CatalogApiProps } from "@/src/app/api/catalog/route";
+"use client";
 import { CategoryItem } from "@/src/entities/catalog";
 import { CATEGORY_LIST } from "./model";
 import s from "./CategoryList.module.css";
@@ -17,17 +17,9 @@ export default function CategoryList(props: CategoryListProps) {
 		<aside className={s.categoryList}>
 			<aside className={s.fake}></aside>
 			{categoryList.map((category, i) => {
-				const q = `"subject:${category.subject}"`;
-				const apiParams: CatalogApiProps = { q: q };
-				const activeClass = i === 0 ? "active" : "";
-
+				const q = `subject:${category.subject}`;
 				return (
-					<CategoryItem
-						key={i}
-						apiOptions={apiParams}
-						menuName={category.subject}
-						className={activeClass}
-					/>
+					<CategoryItem category={q} key={i} menuName={category.subject} />
 				);
 			})}
 		</aside>

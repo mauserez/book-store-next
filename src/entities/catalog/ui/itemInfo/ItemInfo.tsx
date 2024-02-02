@@ -13,7 +13,7 @@ export default function ItemInfo(props: ItemDataType) {
 	const { authors, title, averageRating, description, ratingsCount } =
 		volumeInfo;
 
-	const authorsText = authors.join(",");
+	const authorsText = authors ? authors.join(",") : "";
 	//const text = options.text ? options.text : "Press";
 
 	return (
@@ -23,9 +23,9 @@ export default function ItemInfo(props: ItemDataType) {
 				<div className={s.title}>{title}</div>
 
 				<Rating reviews={ratingsCount} rating={averageRating} />
-
-				<div className={s.description}>{description ?? ""}</div>
 			</div>
+
+			<div className={s.description}>{description ?? ""}</div>
 
 			<BookPrice {...saleInfo} />
 
@@ -43,11 +43,12 @@ const BookPrice = (props: ItemDataSaleInfoType) => {
 
 	return (
 		<div className={s.price}>
-			{retailPrice && retailPrice.currencyCode
-				? retailPrice.currencyCode
-				: null}
-
-			{numberWithSpaces(retailPrice.amount)}
+			<span>
+				{retailPrice && retailPrice.currencyCode
+					? retailPrice.currencyCode
+					: null}
+			</span>
+			<span>{numberWithSpaces(retailPrice.amount)}</span>
 		</div>
 	);
 };

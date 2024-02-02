@@ -1,0 +1,20 @@
+.card {
+	background-color: #ffe0e2;
+	padding: 17px 29px;
+	width: 353;
+	min-height: 345px;
+	display: flex;
+	flex-direction: column;
+	gap: 29px;
+}
+
+.title {
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.info {
+	color: var(--color-gray);
+	font-size: 12px;
+	font-weight: 600;
+}

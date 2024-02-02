@@ -1,3 +1,3 @@
-import CartActionButton from "./cart-action-button/CartActionButton";
+import CartActionButton from "./cart-counter-button/CartCounterButton";
 
 export { CartActionButton };

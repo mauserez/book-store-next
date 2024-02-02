@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import dynamic from "next/dynamic";
+import { Montserrat, Open_Sans } from "next/font/google";
 
 import "@/src/styles/reset.css";
 import "@/src/styles/normalize.css";
@@ -11,7 +12,14 @@ const montserrat = Montserrat({
 	weight: ["500", "600", "700", "900"],
 	style: ["normal", "italic"],
 	subsets: ["latin"],
-	display: "swap",
+	variable: "--font-mont",
+});
+
+const opensans = Open_Sans({
+	weight: ["400"],
+	style: ["normal"],
+	subsets: ["latin"],
+	variable: "--font-open",
 });
 
 export const metadata: Metadata = {
@@ -29,7 +37,7 @@ export default function RootLayout({
 	return (
 		<Providers>
 			<html lang="en">
-				<body className={montserrat.className}>
+				<body className={`${montserrat.variable} ${opensans.variable}`}>
 					<Header />
 					<div className="inner-container">{children}</div>
 				</body>

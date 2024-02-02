@@ -19,6 +19,7 @@ export const SvgFilled = (props: SvgFilledProps) => {
 
 	const hash = Math.random();
 	const urlFill = `gradient_${hash}`;
+	const percFill = percentage ? percentage : 0;
 
 	return (
 		<svg
@@ -29,8 +30,8 @@ export const SvgFilled = (props: SvgFilledProps) => {
 		>
 			<defs>
 				<linearGradient id={urlFill} x1="0%" x2="100%" y1="0%" y2="0%">
-					<stop offset={`${percentage}%`} stop-color={percFillColor}></stop>
-					<stop offset="0%" stop-color={fillColor}></stop>
+					<stop offset={`${percFill}%`} stopColor={percFillColor}></stop>
+					<stop offset="0%" stopColor={fillColor}></stop>
 				</linearGradient>
 			</defs>
 			<path

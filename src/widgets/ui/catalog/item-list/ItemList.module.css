@@ -3,11 +3,10 @@
 	flex-direction: column;
 	row-gap: 96px;
 	padding-bottom: 30px;
-	min-height: 1092px;
+	min-height: 600px;
 
 	@media screen and (max-width: 650px) {
 		padding-top: 30px;
-		min-height: 600px;
 		row-gap: 32px;
 	}
 }
@@ -26,8 +25,4 @@
 		grid-auto-rows: auto;
 		row-gap: 32px;
 	}
-}
-
-.loadMore {
-	align-self: center;
 }

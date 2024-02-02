@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { NextSplitSearchUrl } from "@/src/shared/utils/url";
 import axios from "axios";
+import QueryString from "qs";
 
 export type CatalogApiProps = {
 	q?: string;
@@ -35,35 +35,36 @@ export type ItemDataType = {
 	saleInfo: ItemDataSaleInfoType;
 };
 
-export type CatalogApiResponseType = {
-	items: ItemDataType[] | [];
-};
+export type CatalogApiResponseType = ItemDataType[];
 
 export async function POST(req: NextRequest) {
-	const params = req.json() as CatalogApiProps;
+	const params = await req.json();
 
 	params.q = params.q ? params.q : "subject:Architecture";
 	params.printType = params.printType ? params.printType : "books";
 	params.startIndex = params.startIndex ? params.startIndex : 0;
 	params.maxResults = 6;
 	params.langRestrict = params.langRestrict ? params.langRestrict : "en";
-	const key = process.env.NEXT_PUBLIC_GBOOKS_KEY;
+	const key = process.env.NEXT_PUBLIC_GBOOKS_KEY2;
 
-	const paramsUrl = new URLSearchParams(<URLSearchParams>params);
+	const paramsUrl = QueryString.stringify(params as Record<string, string>);
+
 	const url = `https://www.googleapis.com/books/v1/volumes?key=${key}&${paramsUrl}`;
 
 	const books = await axios
 		.get<CatalogApiResponseType>(url)
 		.then((response) => {
-			const res = response.data.items;
+			const res = response.data;
 			return res;
 		})
 		.catch((error) => {
+			if (error.response) {
+				console.log(error.response.data);
+				console.log(error.response.status);
+				console.log(error.response.headers);
+			}
 			return [];
 		});
 
-	return NextResponse.json({
-		books: books,
-		result: 123,
-	});
+	return NextResponse.json(books);
 }

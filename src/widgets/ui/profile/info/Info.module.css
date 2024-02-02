@@ -1,0 +1,35 @@
+.card {
+	display: flex;
+	gap: 17px;
+}
+
+.avatar {
+	width: 235px;
+	height: 235px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+
+	.block {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		.title {
+			font-size: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+
+		.value {
+			font-size: 24px;
+			font-weight: 700;
+		}
+	}
+}
+
+.editProfleButton {
+	margin-top: auto;
+}

@@ -1,64 +1,107 @@
-import {
-	CatalogApiProps,
-	CatalogApiResponseType,
-	ItemDataType,
-} from "@/src/app/api/catalog/route";
+"use client";
 
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createAppSlice } from "../createAppSlice";
+import { CatalogApiProps, ItemDataType } from "@/src/app/api/catalog/route";
+
 import { RootState } from "../store";
-import axios from "axios";
+import { createAppSlice } from "../createAppSlice";
+import { type PayloadAction } from "@reduxjs/toolkit";
 
-type ApiStatusType = "idle" | "loading" | "failed";
+type ApiStatusType = "idle" | "loading" | "loading-more" | "failed";
+type LoadType = "redraw" | "loadmore";
+
 type CatalogInitStateType = {
 	items: ItemDataType[];
 	apiStatus: ApiStatusType;
-	filter: CatalogApiProps;
+	startIndex: number;
+	filter: Omit<CatalogApiProps, "startIndex">;
+	loadType: LoadType;
 };
 
 const initialState: CatalogInitStateType = {
 	items: [],
 	apiStatus: "idle",
+	loadType: "redraw",
+	startIndex: 0,
 	filter: {
 		q: "subject:Architecture",
 		printType: "books",
-		startIndex: 0,
 		maxResults: 6,
 		langRestrict: "en",
 	},
+};
+
+const isLoading = (status: ApiStatusType) => {
+	return ["loading", "loading-more"].includes(status);
 };
 
 export const catalogSlice = createAppSlice({
 	name: "catalog",
 	initialState,
 	reducers: (create) => ({
-		/* getBooks: create.reducer((state, action: PayloadAction<ApiProps>) => {
-			state.apiStatus = "loading";
-			state.filter = { ...action.payload, startIndex: 0 };
-			state.items = await axios.get("/api/catalog");
-		}), */
-		loadMoreBooks: create.reducer((state, action: PayloadAction<number>) => {
-			state.apiStatus = "loading";
-			const currentStartIndex = state.filter.startIndex ?? 0;
-			const currentMaxResults = state.filter.startIndex ?? 6;
-			state.filter.startIndex = currentStartIndex + currentMaxResults;
+		setFilter: create.reducer(
+			(state, action: PayloadAction<CatalogApiProps>) => {
+				state.filter = { ...state.filter, ...action.payload };
+			}
+		),
+		setStartIndex: create.reducer((state, action: PayloadAction<number>) => {
+			state.startIndex = action.payload;
 		}),
 		getBooks: create.asyncThunk(
-			async (filters: CatalogApiProps, { getState }) => {
-				const state = getState() as RootState;
-				const catalogState = state.catalog ?? initialState;
-				catalogState.filter = filters;
+			async (type: LoadType, Store) => {
+				const { catalog } = Store.getState() as RootState;
 
-				// The value we return becomes the `fulfilled` action payload
-				return await axios.post<CatalogApiResponseType>("/api/catalog");
+				if (!isLoading(catalog.apiStatus)) {
+					return;
+				}
+				let newStartIndex = 0;
+
+				if (type === "redraw") {
+					Store.dispatch(setStartIndex(0));
+				}
+
+				if (type === "loadmore") {
+					const startIndex = catalog.startIndex;
+					const maxResults = catalog.filter.maxResults
+						? catalog.filter.maxResults
+						: 6;
+					newStartIndex = startIndex + maxResults;
+
+					Store.dispatch(setStartIndex(newStartIndex));
+				}
+
+				const filter = { ...catalog.filter, startIndex: newStartIndex };
+
+				const res = await fetch("/api/catalog", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(filter),
+				});
+
+				const data = await res.json();
+				
+
+				return data;
 			},
 			{
-				pending: (state) => {
-					state.apiStatus = "loading";
+				pending: (state, action) => {
+					if (action.meta.arg === "loadmore") {
+						state.apiStatus = "loading-more";
+					} else {
+						state.apiStatus = "loading";
+					}
 				},
 				fulfilled: (state, action) => {
+					console.log(state.apiStatus);
+					if (isLoading(state.apiStatus)) {
+						if (action.meta.arg === "loadmore") {
+							state.items.push(action.payload.items);
+						} else {
+							state.items = action.payload.items;
+						}
+					}
 					state.apiStatus = "idle";
-					state.items = action.payload.data.items;
 				},
 				rejected: (state) => {
 					state.apiStatus = "failed";
@@ -66,11 +109,24 @@ export const catalogSlice = createAppSlice({
 			}
 		),
 	}),
+
 	selectors: {
 		selectApiStatus: (state) => state.apiStatus,
 		selectItems: (state) => state.items,
+		selectFilter: (state) => state.filter,
+		selectFilterCategory: (state) => state.filter.q,
 	},
 });
 
-export const { getBooks, loadMoreBooks } = catalogSlice.actions;
-export const { selectApiStatus, selectItems } = catalogSlice.selectors;
+export const { setStartIndex, setFilter, getBooks } = catalogSlice.actions;
+
+export const {
+	selectApiStatus,
+	selectItems,
+	selectFilter,
+	selectFilterCategory,
+} = catalogSlice.selectors;
+
+const catalogReducer = catalogSlice.reducer;
+
+export default catalogReducer;
