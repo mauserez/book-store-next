@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Montserrat, Open_Sans } from "next/font/google";
 
 import "@/src/styles/reset.css";

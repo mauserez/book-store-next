@@ -1,21 +1,33 @@
 .card {
 	display: flex;
 	gap: 17px;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .avatar {
 	width: 235px;
 	height: 235px;
+	position: relative;
 }
 
 .info {
 	display: flex;
 	flex-direction: column;
+	gap: 25px;
+
+	@media screen and (max-width: 500px) {
+		align-items: center;
+	}
 
 	.block {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
+
+		@media screen and (max-width: 500px) {
+			text-align: center;
+		}
 
 		.title {
 			font-size: 12px;

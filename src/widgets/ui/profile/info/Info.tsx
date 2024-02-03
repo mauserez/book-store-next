@@ -11,8 +11,6 @@ export default function Info() {
 					src={"/svg/profile-avatar.svg"}
 					objectFit="cover"
 					fill
-					width={235}
-					height={235}
 				/>
 			</div>
 			<div className={s.info}>
@@ -25,7 +23,7 @@ export default function Info() {
 					<div className={s.value}>example@mail.com</div>
 				</div>
 
-				<Button>EDIT PROFILE</Button>
+				<Button className={s.editProfleButton}>EDIT PROFILE</Button>
 			</div>
 		</div>
 	);

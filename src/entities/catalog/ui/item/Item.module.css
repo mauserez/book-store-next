@@ -1,6 +1,6 @@
 .book {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 50% 50%;
 
 	@media screen and (max-width: 414px) {
 		grid-template-columns: 135px 1fr;

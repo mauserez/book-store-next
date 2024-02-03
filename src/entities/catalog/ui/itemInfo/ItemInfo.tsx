@@ -10,8 +10,18 @@ import s from "./ItemInfo.module.css";
 
 export default function ItemInfo(props: ItemDataType) {
 	const { id, volumeInfo, saleInfo } = props;
-	const { authors, title, averageRating, description, ratingsCount } =
-		volumeInfo;
+
+	if (!volumeInfo) {
+		return null;
+	}
+
+	const {
+		authors = "",
+		title = "",
+		averageRating,
+		description,
+		ratingsCount,
+	} = volumeInfo;
 
 	const authorsText = authors ? authors.join(",") : "";
 	//const text = options.text ? options.text : "Press";
@@ -29,7 +39,7 @@ export default function ItemInfo(props: ItemDataType) {
 
 			<BookPrice {...saleInfo} />
 
-			<CartActionButton />
+			<CartActionButton item={props} />
 		</div>
 	);
 }

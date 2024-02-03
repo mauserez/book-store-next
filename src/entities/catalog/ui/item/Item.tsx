@@ -3,9 +3,15 @@ import ItemInfo from "../itemInfo/ItemInfo";
 import s from "./Item.module.css";
 
 export default function Item(props: ItemDataType) {
+	if (!props.volumeInfo) {
+		return null;
+	}
+
 	const imgPlaceholder = "/img/placeholder2.png";
 	const { volumeInfo } = props;
-	const img = volumeInfo.imageLinks
+	let img = "";
+
+	img = volumeInfo.imageLinks
 		? volumeInfo.imageLinks.thumbnail ?? imgPlaceholder
 		: imgPlaceholder;
 

@@ -6,7 +6,7 @@ import s from "./Header.module.css";
 
 export const Header = () => {
 	return (
-		<header className={s.headerWrap}>
+		<header className={`${s.headerWrap} app-header`}>
 			<div className={`${s.header} inner-container`}>
 				<Logo />
 				<Nav />

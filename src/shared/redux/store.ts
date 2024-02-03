@@ -2,7 +2,7 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { catalogReducer } from "./reducers";
+import { catalogReducer, cartReducer } from "./reducers";
 
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "./nextStorage";
@@ -19,11 +19,12 @@ import {
 const catalogReducerPersistConfig = {
 	key: "catalog",
 	storage: storage,
-	blacklist: ["apiStatus", "startIndex", "items"],
+	whitelist: ["filter"],
 };
 
 const rootReducer = combineReducers({
 	catalog: persistReducer(catalogReducerPersistConfig, catalogReducer),
+	cart: cartReducer,
 });
 
 const rootPersistConfig = {
@@ -33,7 +34,6 @@ const rootPersistConfig = {
 
 export default persistReducer(rootPersistConfig, rootReducer);
 
-//export const makeStore = (preloadedState?: Partial<RootState>) => {
 const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) => {
@@ -43,17 +43,11 @@ const store = configureStore({
 			},
 		});
 	},
-	//wpreloadedState,
 });
 
 setupListeners(store.dispatch);
 
-/*
-	setupListeners(store.dispatch);
-	return store;
-}; */
-
-export const appStore = store; //makeStore();
+export const appStore = store;
 export const appPersistor = persistStore(appStore);
 
 export type AppStore = typeof appStore;

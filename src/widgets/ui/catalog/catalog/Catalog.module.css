@@ -4,11 +4,6 @@
 	width: 100vw;
 	max-width: 100%;
 
-	@media screen and (max-width: 1139px) {
-		padding-left: 16px;
-		padding-right: 16px;
-	}
-
 	@media screen and (max-width: 650px) {
 		padding-top: 16px;
 	}

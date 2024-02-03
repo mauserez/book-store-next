@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import {
 	selectFilterCategory,
 	setFilter,
-} from "@/src/shared/redux/slices/catalogSlice";
+} from "@/src/shared/redux/slices/catalog/catalogSlice";
 
 type CategoryItemProps = {
 	menuName: string;

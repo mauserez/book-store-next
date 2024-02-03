@@ -11,10 +11,10 @@ export type CatalogApiProps = {
 };
 
 export type ItemDataInfoType = {
-	authors: string[];
+	authors?: string[];
 	averageRating?: number;
-	description: string;
-	imageLinks: {
+	description?: string;
+	imageLinks?: {
 		thumbnail?: string;
 	};
 	language: string;
@@ -31,11 +31,11 @@ export type ItemDataSaleInfoType = {
 
 export type ItemDataType = {
 	id: string;
-	volumeInfo: ItemDataInfoType;
+	volumeInfo?: ItemDataInfoType;
 	saleInfo: ItemDataSaleInfoType;
 };
 
-export type CatalogApiResponseType = ItemDataType[];
+export type CatalogApiResponseType = { items: ItemDataType[] };
 
 export async function POST(req: NextRequest) {
 	const params = await req.json();
@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
 	params.q = params.q ? params.q : "subject:Architecture";
 	params.printType = params.printType ? params.printType : "books";
 	params.startIndex = params.startIndex ? params.startIndex : 0;
+	params.filter = "paid-ebooks";
 	params.maxResults = 6;
 	params.langRestrict = params.langRestrict ? params.langRestrict : "en";
 	const key = process.env.NEXT_PUBLIC_GBOOKS_KEY2;
@@ -54,7 +55,7 @@ export async function POST(req: NextRequest) {
 	const books = await axios
 		.get<CatalogApiResponseType>(url)
 		.then((response) => {
-			const res = response.data;
+			const res = response.data.items;
 			return res;
 		})
 		.catch((error) => {

@@ -23,6 +23,7 @@ export const SvgFilled = (props: SvgFilledProps) => {
 
 	return (
 		<svg
+			xmlns="http://www.w3.org/2000/svg"
 			viewBox={`0 0 ${width} ${height}`}
 			width={width}
 			height={height}
@@ -36,7 +37,7 @@ export const SvgFilled = (props: SvgFilledProps) => {
 			</defs>
 			<path
 				d="M6 0L7.80568 3.5147L11.7063 4.1459L8.92165 6.9493L9.52671 10.8541L6 9.072L2.47329 10.8541L3.07835 6.9493L0.293661 4.1459L4.19432 3.5147L6 0Z"
-				fill={`url(#${urlFill}})`}
+				fill={`url(#${urlFill})`}
 			></path>
 		</svg>
 	);

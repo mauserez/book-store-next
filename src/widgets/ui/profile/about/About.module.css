@@ -1,11 +1,12 @@
 .card {
 	background-color: #ffe0e2;
 	padding: 17px 29px;
-	width: 353;
+	width: 353px;
 	min-height: 345px;
 	display: flex;
 	flex-direction: column;
 	gap: 29px;
+	margin-top: 87px;
 }
 
 .title {

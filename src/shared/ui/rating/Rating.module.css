@@ -10,5 +10,8 @@
 }
 
 .reviews {
-	@mixin textGray 10px;
+	color: var(--color-gray);
+	font-family: var(--font-open);
+	font-size: 10px;
+	font-weight: 400;
 }

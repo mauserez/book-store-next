@@ -16,7 +16,8 @@ export default function Rating(props: RatingProps) {
 	}
 
 	const starMap = [0, 1, 2, 3, 4];
-	const starData = chunkBy(rating ?? 0, 100);
+	const calcRating = (rating ?? 0) * 100;
+	const starData = chunkBy(calcRating, 100);
 
 	return (
 		<div className={s.rating}>

@@ -1,2 +1,3 @@
-import catalogReducer from "./slices/catalogSlice";
-export { catalogReducer };
+import catalogReducer from "./slices/catalog/catalogSlice";
+import cartReducer from "./slices/cart/cartSlice";
+export { catalogReducer, cartReducer };
