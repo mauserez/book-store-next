@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import axiosJsonServer from "@/src/shared/axios";
+import jsonServer from "@/src/shared/axios";
 import { CartItemType } from "@/src/shared/redux/slices/cart/cartSlice";
 
-export const cartApi = process.env.NEXT_PUBLIC_CART_API;
-
 export async function GET() {
-	const cart = await axiosJsonServer
+	const cart = await jsonServer
 		.get<CartItemType[]>("/cart")
 		.then((response) => {
 			const res = response.data;
@@ -24,7 +22,7 @@ export async function GET() {
 }
 
 export async function DELETE() {
-	const cart = await axiosJsonServer
+	const cart = await jsonServer
 		.delete<CartItemType[]>("/cart")
 		.then((response) => {
 			const res = response.data;
@@ -45,7 +43,7 @@ export async function DELETE() {
 export async function POST(req: NextRequest) {
 	const item = (await req.json()) as CartItemType;
 
-	const cart = await axiosJsonServer
+	const cart = await jsonServer
 		.post<CartItemType[]>("/cart", item)
 		.then((response) => {
 			const res = response.data;

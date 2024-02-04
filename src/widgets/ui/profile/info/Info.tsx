@@ -6,12 +6,7 @@ export default function Info() {
 	return (
 		<div className={s.card}>
 			<div className={s.avatar}>
-				<Image
-					alt="profile"
-					src={"/svg/profile-avatar.svg"}
-					objectFit="cover"
-					fill
-				/>
+				<Image alt="profile" src={"/svg/profile-avatar.svg"} fill />
 			</div>
 			<div className={s.info}>
 				<div className={s.block}>

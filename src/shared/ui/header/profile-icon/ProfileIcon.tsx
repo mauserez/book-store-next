@@ -1,6 +1,6 @@
 import { ButtonIcon } from "..";
 
-export const ProfileButton = () => {
+export const ProfileIcon = () => {
 	return (
 		<ButtonIcon
 			link="/profile"

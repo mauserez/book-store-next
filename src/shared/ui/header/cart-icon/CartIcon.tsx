@@ -2,24 +2,27 @@
 
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { ButtonIcon } from "..";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { getCart } from "@/src/shared/redux/slices/cart/asyncThunks/cart";
-import { selectCart } from "@/src/shared/redux/slices/cart/cartSlice";
+import {
+	selectCartLen,
+	selectStatus,
+} from "@/src/shared/redux/slices/cart/cartSlice";
 
-export const CartButton = () => {
+export const CartIcon = () => {
 	const dispatch = useAppDispatch();
-	const cart = useAppSelector(selectCart);
+	const status = useAppSelector(selectStatus);
+	const counter = useAppSelector(selectCartLen);
 	const [mounted, setMounted] = useState(false);
-	const counter = cart.length;
 
 	const handleCartCounter = useCallback(async () => {
 		await dispatch(getCart());
 		setMounted(true);
 	}, [dispatch]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		handleCartCounter();
-	}, [handleCartCounter]);
+	}, [handleCartCounter, status]);
 
 	return (
 		<ButtonIcon

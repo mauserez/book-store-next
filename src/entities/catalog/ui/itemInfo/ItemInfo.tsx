@@ -5,7 +5,7 @@ import {
 	ItemDataSaleInfoType,
 } from "@/src/app/api/catalog/route";
 
-import { CartActionButton } from "@/src/entities/cart/ui";
+import { CartItemActionButton } from "@/src/entities/cart/ui";
 import s from "./ItemInfo.module.css";
 
 export default function ItemInfo(props: ItemDataType) {
@@ -24,7 +24,6 @@ export default function ItemInfo(props: ItemDataType) {
 	} = volumeInfo;
 
 	const authorsText = authors ? authors.join(",") : "";
-	//const text = options.text ? options.text : "Press";
 
 	return (
 		<div className={s.info}>
@@ -39,7 +38,7 @@ export default function ItemInfo(props: ItemDataType) {
 
 			<BookPrice {...saleInfo} />
 
-			<CartActionButton item={props} />
+			<CartItemActionButton item={props} />
 		</div>
 	);
 }

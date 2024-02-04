@@ -1,0 +1,30 @@
+.btn {
+	width: 22px;
+	height: 25px;
+	flex-shrink: 0;
+	cursor: pointer;
+}
+
+.btnDisabled {
+	opacity: 0.5;
+}
+
+.counter {
+	color: var(--color-gray);
+	font-family: var(--font-mont);
+	font-size: 16px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.plusMinus {
+	border: 1px solid #eeedf5;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 16px;
+}
+
+.plusMinus:hover {
+	background-color: inherit;
+	cursor: default;
+}
