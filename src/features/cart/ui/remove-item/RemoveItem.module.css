@@ -1,0 +1,10 @@
+.removeBtn {
+	color: #ff0000;
+	cursor: pointer;
+
+	@media screen and (max-width: 950px) {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}

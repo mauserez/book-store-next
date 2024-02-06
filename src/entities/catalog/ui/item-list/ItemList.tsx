@@ -1,7 +1,6 @@
 "use client";
-
 import { Item } from "@/src/entities/catalog";
-import s from "./ItemList.module.css";
+
 import {
 	selectItems,
 	selectFilter,
@@ -14,7 +13,9 @@ import { getBooks } from "@/src/shared/redux/slices/catalog/asyncThunks";
 
 import { LoadMore } from "@/src/features/catalog/load-more";
 import { Loader } from "@/src/shared/ui/loaders";
-import { ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogItemType } from "@/src/app/api/catalog/route";
+
+import s from "./ItemList.module.css";
 
 export default function ItemList() {
 	const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ export default function ItemList() {
 	const catalogApiStatus = useAppSelector(selectApiStatus);
 
 	const [mounted, setMounted] = useState<boolean>(false);
-	const [itemList, setItemList] = useState<ItemDataType[]>([]);
+	const [itemList, setItemList] = useState<CatalogItemType[]>([]);
 
 	useEffect(() => {
 		dispatch(getBooks("redraw"));
@@ -40,7 +41,7 @@ export default function ItemList() {
 				itemList && itemList.length > 0 ? (
 					<div className={s.itemList}>
 						{itemList.map((book, i) => {
-							return <Item key={book.id + i + Math.random()} {...book} />;
+							return <Item key={book.id + i + Math.random()} item={book} />;
 						})}
 					</div>
 				) : mounted ? (

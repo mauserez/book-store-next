@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import clsx from "clsx";
 import s from "./Nav.module.css";
 
 export const Nav = () => {
@@ -16,7 +17,7 @@ export const Nav = () => {
 							onClick={() => {
 								setActiveIdx(idx);
 							}}
-							className={`${s.navItem} ${idx === activeIdx ? "active" : ""}`}
+							className={clsx(s.navItem, idx === activeIdx ? "active" : "")}
 						>
 							{navName}
 						</li>

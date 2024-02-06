@@ -1,11 +1,11 @@
-import { ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { createAppSlice } from "../../createAppSlice";
 import { createCartItem, clearCart, getCart } from "./asyncThunks/cart";
-import { toggleCartItemCount } from "./asyncThunks/cartItem";
+import { toggleCartItemCount, deleteCartItem } from "./asyncThunks/cartItem";
 
 export type CartItemType = {
 	id: string;
-	item: ItemDataType;
+	item: CatalogItemType;
 	count: number;
 };
 
@@ -22,7 +22,7 @@ const initialState: CartStateType = {
 export const cartSlice = createAppSlice({
 	name: "cart",
 	initialState,
-	reducers: (create) => ({
+	reducers: () => ({
 		/* countItemInCart: create.reducer((state, action) => {
 			state.cart =
 		}), */
@@ -45,9 +45,9 @@ export const cartSlice = createAppSlice({
 		});
 
 		/* Удалить объект корзины */
-		/* builder.addCase(createCartItem.fulfilled, (state) => {
+		builder.addCase(deleteCartItem.fulfilled, (state) => {
 			state.status = "refreshed";
-		}); */
+		});
 
 		/* Очистка корзины */
 		builder.addCase(clearCart.fulfilled, (state) => {

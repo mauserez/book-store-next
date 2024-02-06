@@ -1,9 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type CartItemType } from "../cartSlice";
-import { ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { isCartItemExists } from "./cartItem";
-import { RootState } from "../../../store";
 
 export const getCart = createAsyncThunk("cart/getCart", async () => {
 	return await axios
@@ -31,7 +30,7 @@ export const clearCart = createAsyncThunk("cart/clearCart", async () => {
 
 export const createCartItem = createAsyncThunk(
 	"cart/createCartItem",
-	async (item: ItemDataType, store) => {
+	async (item: CatalogItemType) => {
 		const cartItem = { id: item.id, item: item, count: 1 };
 		const isExists = await isCartItemExists(item.id);
 
@@ -41,8 +40,8 @@ export const createCartItem = createAsyncThunk(
 
 		return axios
 			.post<CartItemType[]>("/api/cart", cartItem)
-			.then((response) => {
-				console.log(555);
+			.then(() => {
+				console.log("Cart item created");
 				return true;
 			})
 			.catch((error) => {

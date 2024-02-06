@@ -2,6 +2,7 @@
 import { ComponentProps, ReactNode } from "react";
 import s from "./Button.module.css";
 import { LineWave } from "react-loader-spinner";
+import clsx from "clsx";
 
 type ButtonProps = ComponentProps<"button"> & {
 	children: ReactNode;
@@ -12,7 +13,7 @@ export default function Button(props: ButtonProps) {
 	const { className, children, loader = false, ...buttonProps } = props;
 
 	return (
-		<button {...buttonProps} className={`${s.button} ${className}`}>
+		<button {...buttonProps} className={clsx(s.button, className)}>
 			{loader ? <ButtonLoader /> : null}
 			{children}
 		</button>

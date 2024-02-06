@@ -1,0 +1,15 @@
+.cartTable {
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+	padding-bottom: 60px;
+
+	@media screen and (max-width: 950px) {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media screen and (max-width: 650px) {
+		grid-template-columns: 1fr;
+	}
+}

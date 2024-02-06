@@ -28,7 +28,6 @@ export const CartIcon = () => {
 		<ButtonIcon
 			link="/cart"
 			counter={mounted ? counter : null}
-			className="header__cart-btn"
 			src="icons/cart.svg"
 		/>
 	);

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SwiftyContext } from "../SwiftyContext";
+import clsx from "clsx";
 import s from "./Dots.module.css";
 
 export default function Dots() {
@@ -16,7 +17,7 @@ export default function Dots() {
 							handleSlide(i);
 						}}
 						key={i}
-						className={`${s.dot} ${activeIdx === i ? s.active : null}`}
+						className={clsx(s.dot, activeIdx === i ? s.active : null)}
 					></li>
 				);
 			})}

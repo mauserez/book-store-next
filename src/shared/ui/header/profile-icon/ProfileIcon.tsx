@@ -1,11 +1,15 @@
+"use client";
+
+import { ChangeEvent, useState } from "react";
 import { ButtonIcon } from "..";
+import { LoginForm } from "@/src/entities/login/ui/LoginForm";
+import s from "./ProfileIcon.module.css";
 
 export const ProfileIcon = () => {
 	return (
-		<ButtonIcon
-			link="/profile"
-			className="header__profile-btn"
-			src="icons/profile.svg"
-		/>
+		<div className={s.iconWrap}>
+			<ButtonIcon link="/profile" src="icons/profile.svg" />
+			<LoginForm />
+		</div>
 	);
 };

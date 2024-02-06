@@ -1,6 +1,6 @@
 "use client";
 
-import { CatalogApiProps, ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogApiProps, CatalogItemType } from "@/src/app/api/catalog/route";
 
 import { createAppSlice } from "../../createAppSlice";
 import { type PayloadAction } from "@reduxjs/toolkit";
@@ -16,7 +16,7 @@ export type ApiStatusType =
 export type LoadType = "redraw" | "loadmore";
 
 type CatalogInitStateType = {
-	items: ItemDataType[];
+	items: CatalogItemType[];
 	apiStatus: ApiStatusType;
 	startIndex: number;
 	filter: Omit<CatalogApiProps, "startIndex">;
@@ -57,6 +57,7 @@ export const catalogSlice = createAppSlice({
 				state.apiStatus = "loading";
 			}
 		});
+
 		builder.addCase(getBooks.fulfilled, (state, action) => {
 			if (!action.payload) {
 				state.apiStatus = "nomore";
@@ -69,6 +70,11 @@ export const catalogSlice = createAppSlice({
 
 				state.apiStatus = "idle";
 			}
+		});
+
+		builder.addCase(getBooks.rejected, (state) => {
+			state.items = [];
+			state.apiStatus = "idle";
 		});
 	},
 

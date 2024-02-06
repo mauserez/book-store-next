@@ -1,13 +1,14 @@
 "use client";
 import { Button } from "@/src/shared/ui/buttons";
 import s from "./PlusMinus.module.css";
-import { ComponentProps, useCallback, useState } from "react";
+import { ComponentProps, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { selectCart } from "@/src/shared/redux/slices/cart/cartSlice";
-import { ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { toggleCartItemCount } from "@/src/shared/redux/slices/cart/asyncThunks/cartItem";
+import clsx from "clsx";
 
-type PlusMinusProps = { item: ItemDataType };
+type PlusMinusProps = { item: CatalogItemType };
 export const PlusMinus = (props: PlusMinusProps) => {
 	const { item } = props;
 	const dispatch = useAppDispatch();
@@ -51,7 +52,7 @@ const Btn = (props: BtnProps) => {
 	const disabledClass = disabled ? s.btnDisabled : "";
 
 	return (
-		<div className={`${s.btn} ${disabledClass}`} {...divProps}>
+		<div className={clsx(s.btn, disabledClass)} {...divProps}>
 			<img src={src} alt="Кнопка корзины" />
 		</div>
 	);

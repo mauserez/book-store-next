@@ -13,8 +13,8 @@
 
 .itemList {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(0, 424px));
-	grid-auto-rows: 300px;
+	grid-template-columns: repeat(auto-fill, minmax(0, 414px));
+	grid-auto-rows: 290px;
 	row-gap: 96px;
 	column-gap: 76px;
 	z-index: 2;

@@ -4,10 +4,11 @@ import {
 	type LoadType,
 	type ApiStatusType,
 } from "../catalogSlice";
+
 import axios from "axios";
 
 import { RootState } from "../../../store";
-import { ItemDataType } from "@/src/app/api/catalog/route";
+import { CatalogItemType } from "@/src/app/api/catalog/route";
 
 const isLoading = (status: ApiStatusType) => {
 	return ["loading", "loading-more"].includes(status);
@@ -21,7 +22,6 @@ export const getBooks = createAsyncThunk(
 		if (!isLoading(catalog.apiStatus)) {
 			return;
 		}
-
 		let newStartIndex = 0;
 
 		if (type === "redraw") {
@@ -39,9 +39,10 @@ export const getBooks = createAsyncThunk(
 		}
 
 		const filter = { ...catalog.filter, startIndex: newStartIndex };
+		console.log(filter);
 
 		return axios
-			.post<ItemDataType[]>("/api/catalog", filter)
+			.post<CatalogItemType[]>("/api/catalog", filter)
 			.then((response) => {
 				return response.data;
 			});

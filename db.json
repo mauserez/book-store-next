@@ -1,36 +1,201 @@
 {
   "cart": [
     {
-      "count": 1,
-      "id": "SALRDwAAQBAJ"
+      "id": "BShHAAAAQBAJ",
+      "item": {
+        "kind": "books#volume",
+        "id": "BShHAAAAQBAJ",
+        "etag": "MjyRwIXjzdY",
+        "selfLink": "https://www.googleapis.com/books/v1/volumes/BShHAAAAQBAJ",
+        "volumeInfo": {
+          "title": "Foundations of Landscape Architecture",
+          "subtitle": "Integrating Form and Space Using the Language of Site Design",
+          "authors": [
+            "Norman Booth"
+          ],
+          "publisher": "John Wiley & Sons",
+          "publishedDate": "2011-11-30",
+          "description": "A visually engaging introduction to landscape architecturaldesign Landscape architectural design seeks to create environments thataccommodate users' varying lifestyles and needs, incorporatecultural heritage, promote sustainability, and integrate functionalrequirements for optimal enjoyment. Foundations of LandscapeArchitecture introduces the foundational concepts needed toeffectively integrate space and form in landscape design. With over five hundred hand-rendered and digital drawings, aswell as photographs, Foundations of Landscape Architectureillustrates the importance of spatial language. It introducesconcepts, typologies, and rudimentary principles of form and space.Including designs for projects such as parks, campuses, andmemorials, this text provides the core concepts necessary fordesigners to shape functional landscapes. Additionally, chaptersdiscuss organizational and spatial design structures based onorthogonal forms, angular forms, and circular forms. Helping students, professionals, and lifelong learners alike,Foundations of Landscape Arch-itecture delivers a concreteunderstanding of landscape architectural design to inspire one'simagination for countless types of projects.",
+          "industryIdentifiers": [
+            {
+              "type": "ISBN_13",
+              "identifier": "9781118129470"
+            },
+            {
+              "type": "ISBN_10",
+              "identifier": "1118129474"
+            }
+          ],
+          "readingModes": {
+            "text": true,
+            "image": true
+          },
+          "pageCount": 384,
+          "printType": "BOOK",
+          "categories": [
+            "Architecture"
+          ],
+          "maturityRating": "NOT_MATURE",
+          "allowAnonLogging": false,
+          "contentVersion": "1.1.2.0.preview.3",
+          "panelizationSummary": {
+            "containsEpubBubbles": false,
+            "containsImageBubbles": false
+          },
+          "imageLinks": {
+            "smallThumbnail": "http://books.google.com/books/content?id=BShHAAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+            "thumbnail": "http://books.google.com/books/content?id=BShHAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+          },
+          "language": "en",
+          "previewLink": "http://books.google.ru/books?id=BShHAAAAQBAJ&printsec=frontcover&dq=subject:Architecture&hl=&as_brr=6&as_pt=BOOKS&cd=3&source=gbs_api",
+          "infoLink": "https://play.google.com/store/books/details?id=BShHAAAAQBAJ&source=gbs_api",
+          "canonicalVolumeLink": "https://play.google.com/store/books/details?id=BShHAAAAQBAJ"
+        },
+        "saleInfo": {
+          "country": "RU",
+          "saleability": "FOR_SALE",
+          "isEbook": true,
+          "listPrice": {
+            "amount": 5707.25,
+            "currencyCode": "RUB"
+          },
+          "retailPrice": {
+            "amount": 5707.25,
+            "currencyCode": "RUB"
+          },
+          "buyLink": "https://play.google.com/store/books/details?id=BShHAAAAQBAJ&rdid=book-BShHAAAAQBAJ&rdot=1&source=gbs_api",
+          "offers": [
+            {
+              "finskyOfferType": 1,
+              "listPrice": {
+                "amountInMicros": 5707250000,
+                "currencyCode": "RUB"
+              },
+              "retailPrice": {
+                "amountInMicros": 5707250000,
+                "currencyCode": "RUB"
+              }
+            }
+          ]
+        },
+        "accessInfo": {
+          "country": "RU",
+          "viewability": "PARTIAL",
+          "embeddable": true,
+          "publicDomain": false,
+          "textToSpeechPermission": "ALLOWED",
+          "epub": {
+            "isAvailable": true,
+            "acsTokenLink": "http://books.google.ru/books/download/Foundations_of_Landscape_Architecture-sample-epub.acsm?id=BShHAAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+          },
+          "pdf": {
+            "isAvailable": true,
+            "acsTokenLink": "http://books.google.ru/books/download/Foundations_of_Landscape_Architecture-sample-pdf.acsm?id=BShHAAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+          },
+          "webReaderLink": "http://play.google.com/books/reader?id=BShHAAAAQBAJ&hl=&as_brr=6&as_pt=BOOKS&source=gbs_api",
+          "accessViewStatus": "SAMPLE",
+          "quoteSharingAllowed": false
+        }
+      },
+      "count": 4
     },
     {
-      "count": 1,
-      "id": "e71eCAAAQBAJ"
-    },
-    {
-      "count": 1,
-      "id": "84k_kiPPGJsC"
-    },
-    {
-      "count": 1,
-      "id": "nfnDAgAAQBAJ"
-    },
-    {
-      "count": 0,
-      "id": "z2HNDwAAQBAJ"
-    },
-    {
-      "count": 0,
-      "id": "p8bsCAAAQBAJ"
-    },
-    {
-      "count": 0,
-      "id": "BL4G3hi08GoC"
-    },
-    {
-      "count": 2,
-      "id": "UAFopl8ssIAC"
+      "id": "BOJ8mwGgURMC",
+      "item": {
+        "kind": "books#volume",
+        "id": "BOJ8mwGgURMC",
+        "etag": "iubk5/mJ0AA",
+        "selfLink": "https://www.googleapis.com/books/v1/volumes/BOJ8mwGgURMC",
+        "volumeInfo": {
+          "title": "Green Roof Construction and Maintenance (GreenSource Books)",
+          "authors": [
+            "Kelly Luckett"
+          ],
+          "publisher": "McGraw Hill Professional",
+          "publishedDate": "2009-08-03",
+          "description": "A Complete Guide to Building and Maintaining Green Roofs Written by an industry expert in green roof design and installation, this GreenSource book presents all of the information you need to skillfully design, construct, and maintain green roofs. You will find a wealth of practical details gathered through real-world implementations and independent research. Green Roof Construction and Maintenance explains how to design a green roof, plan for irrigation and drainage, select and place soil and plants, and maintain the entire setup. The book also discusses return on investment, LEED design specifications, and the myriad short- and long-term environmental benefits of green roofs. Filled with step-by-step illustrations and full-color photographs, this is a valuable, hands-on guide to a rapidly emerging trend in the sustainability movement. Green Roof Construction and Maintenance includes: Key questions to ask at each stage of the green building process Tested tips and techniques for successful structural design Construction methods for new and existing buildings Information on insulation, drainage, detailing, irrigation, and plant selection Details on optimal soil formulation Illustrations featuring various stages of construction Best practices for green roof maintenance A survey of environmental benefits, including evapo-transpiration, storm-water management, habitat restoration, and improvement of air quality Tips on the LEED design and certification process Considerations for assessing return on investment Color photographs of successfully installed green roofs Useful checklists, tables, and charts",
+          "industryIdentifiers": [
+            {
+              "type": "ISBN_13",
+              "identifier": "9780071608817"
+            },
+            {
+              "type": "ISBN_10",
+              "identifier": "0071608818"
+            }
+          ],
+          "readingModes": {
+            "text": true,
+            "image": true
+          },
+          "pageCount": 208,
+          "printType": "BOOK",
+          "categories": [
+            "Architecture"
+          ],
+          "maturityRating": "NOT_MATURE",
+          "allowAnonLogging": false,
+          "contentVersion": "0.12.5.0.preview.3",
+          "panelizationSummary": {
+            "containsEpubBubbles": false,
+            "containsImageBubbles": false
+          },
+          "imageLinks": {
+            "smallThumbnail": "http://books.google.com/books/content?id=BOJ8mwGgURMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+            "thumbnail": "http://books.google.com/books/content?id=BOJ8mwGgURMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+          },
+          "language": "en",
+          "previewLink": "http://books.google.ru/books?id=BOJ8mwGgURMC&printsec=frontcover&dq=subject:Architecture&hl=&as_brr=6&as_pt=BOOKS&cd=40&source=gbs_api",
+          "infoLink": "https://play.google.com/store/books/details?id=BOJ8mwGgURMC&source=gbs_api",
+          "canonicalVolumeLink": "https://play.google.com/store/books/details?id=BOJ8mwGgURMC"
+        },
+        "saleInfo": {
+          "country": "RU",
+          "saleability": "FOR_SALE",
+          "isEbook": true,
+          "listPrice": {
+            "amount": 5835.09,
+            "currencyCode": "RUB"
+          },
+          "retailPrice": {
+            "amount": 5835.09,
+            "currencyCode": "RUB"
+          },
+          "buyLink": "https://play.google.com/store/books/details?id=BOJ8mwGgURMC&rdid=book-BOJ8mwGgURMC&rdot=1&source=gbs_api",
+          "offers": [
+            {
+              "finskyOfferType": 1,
+              "listPrice": {
+                "amountInMicros": 5835090000,
+                "currencyCode": "RUB"
+              },
+              "retailPrice": {
+                "amountInMicros": 5835090000,
+                "currencyCode": "RUB"
+              }
+            }
+          ]
+        },
+        "accessInfo": {
+          "country": "RU",
+          "viewability": "PARTIAL",
+          "embeddable": true,
+          "publicDomain": false,
+          "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+          "epub": {
+            "isAvailable": true,
+            "acsTokenLink": "http://books.google.ru/books/download/Green_Roof_Construction_and_Maintenance-sample-epub.acsm?id=BOJ8mwGgURMC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+          },
+          "pdf": {
+            "isAvailable": true,
+            "acsTokenLink": "http://books.google.ru/books/download/Green_Roof_Construction_and_Maintenance-sample-pdf.acsm?id=BOJ8mwGgURMC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+          },
+          "webReaderLink": "http://play.google.com/books/reader?id=BOJ8mwGgURMC&hl=&as_brr=6&as_pt=BOOKS&source=gbs_api",
+          "accessViewStatus": "SAMPLE",
+          "quoteSharingAllowed": false
+        }
+      },
+      "count": 4
     }
   ]
 }

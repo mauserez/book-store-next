@@ -1,15 +1,20 @@
 import { Rating } from "@/src/shared/ui/rating";
 import { numberWithSpaces } from "@/src/shared/utils/number";
 import {
-	ItemDataType,
-	ItemDataSaleInfoType,
+	CatalogItemType,
+	CatalogItemSaleInfoType,
 } from "@/src/app/api/catalog/route";
 
 import { CartItemActionButton } from "@/src/entities/cart/ui";
+import { type ItemBehavior } from "../item/Item";
+import clsx from "clsx";
+
 import s from "./ItemInfo.module.css";
 
-export default function ItemInfo(props: ItemDataType) {
-	const { id, volumeInfo, saleInfo } = props;
+type ItemInfoProps = { behavior?: ItemBehavior; item: CatalogItemType };
+export default function ItemInfo(props: ItemInfoProps) {
+	const { item, behavior } = props;
+	const { volumeInfo, saleInfo } = item;
 
 	if (!volumeInfo) {
 		return null;
@@ -25,25 +30,39 @@ export default function ItemInfo(props: ItemDataType) {
 
 	const authorsText = authors ? authors.join(",") : "";
 
+	let titleCartClass = "";
+	let infoCartClass = "";
+	let authorsCartClass = "";
+	let headerCartClass = "";
+
+	if (behavior === "cart") {
+		titleCartClass = s.titleCart;
+		infoCartClass = s.infoCart;
+		authorsCartClass = s.authorsCart;
+		headerCartClass = s.headerCart;
+	}
+
 	return (
-		<div className={s.info}>
-			<div className={s.header}>
-				<div className={s.authors}>{authorsText}</div>
-				<div className={s.title}>{title}</div>
+		<div className={clsx(s.info, infoCartClass)}>
+			<div className={clsx(s.header, headerCartClass)}>
+				<div className={clsx(s.authors, authorsCartClass)}>{authorsText}</div>
+				<div className={clsx(s.title, titleCartClass)}>{title}</div>
 
 				<Rating reviews={ratingsCount} rating={averageRating} />
 			</div>
 
-			<div className={s.description}>{description ?? ""}</div>
-
-			<BookPrice {...saleInfo} />
-
-			<CartItemActionButton item={props} />
+			{behavior === "cart" ? null : (
+				<>
+					<div className={s.description}>{description ?? ""}</div>
+					<BookPrice {...saleInfo} />
+					<CartItemActionButton item={item} />
+				</>
+			)}
 		</div>
 	);
 }
 
-const BookPrice = (props: ItemDataSaleInfoType) => {
+export const BookPrice = (props: CatalogItemSaleInfoType) => {
 	const { retailPrice } = props;
 
 	if (!retailPrice) {
@@ -61,54 +80,3 @@ const BookPrice = (props: ItemDataSaleInfoType) => {
 		</div>
 	);
 };
-
-/*
-export const createBtn = (options: btnOptions) => {
-	const text = options.text ? options.text : "Press";
-	const className = options.className ? options.className : "";
-	const clickCb: Function = options.clickCb ? options.clickCb : () => {};
-
-	const btn = fromHtml(`<button class="btn ${className}">${text}</button>`);
-
-	btn.onclick = () => {
-		clickCb(btn);
-	};
-
-	return btn;
-};
-
-const createItemCartBtn = (item: ApiResponse) => {
-	const checkInCartClass = checkItemExistsInCart(item.id);
-	let btnText = btnTexts[0];
-	let btnClass = "";
-	if (checkInCartClass === true) {
-		btnText = btnTexts[1];
-		btnClass = "active";
-	}
-
-	const btn = createBtn({
-		text: btnText,
-		className: `item-info__cart-btn ${btnClass}`,
-		clickCb: (btn: HTMLElement) => {
-			btn.classList.toggle("active");
-
-			if (btn.classList.contains("active")) {
-				btn.innerHTML = btnTexts[1];
-				addItemToCart(item.id);
-			} else {
-				removeItemFromCart(item.id);
-				btn.innerHTML = btnTexts[0];
-			}
-
-			const headerCartBtnCounter = document
-				.querySelector(".header__cart-btn")
-				?.querySelector(".counter");
-			if (headerCartBtnCounter) {
-				headerCartBtnCounter.innerHTML = cartItemCounter();
-			}
-		},
-	});
-
-	return btn;
-};
- */

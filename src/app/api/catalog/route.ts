@@ -22,20 +22,20 @@ export type ItemDataInfoType = {
 	title: string;
 };
 
-export type ItemDataSaleInfoType = {
+export type CatalogItemSaleInfoType = {
 	retailPrice?: {
 		amount: number;
 		currencyCode: string;
 	};
 };
 
-export type ItemDataType = {
+export type CatalogItemType = {
 	id: string;
 	volumeInfo?: ItemDataInfoType;
-	saleInfo: ItemDataSaleInfoType;
+	saleInfo: CatalogItemSaleInfoType;
 };
 
-export type CatalogApiResponseType = { items: ItemDataType[] };
+export type CatalogApiResponseType = { items: CatalogItemType[] };
 
 export async function POST(req: NextRequest) {
 	const params = await req.json();
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 		.get<CatalogApiResponseType>(url)
 		.then((response) => {
 			const res = response.data.items;
-			return res;
+			return res ?? [];
 		})
 		.catch((error) => {
 			if (error.response) {

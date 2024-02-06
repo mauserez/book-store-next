@@ -2,10 +2,10 @@
 import Image from "next/image";
 import s from "./ButtonIcon.module.css";
 import Link from "next/link";
-import { useEffect } from "react";
+import clsx from "clsx";
 
 type ButtonIconProps = {
-	className: string;
+	className?: string;
 	src: string;
 	counter?: number | null;
 	link?: string;
@@ -20,7 +20,7 @@ export const ButtonIcon = (props: ButtonIconProps) => {
 		);
 
 	const button = (
-		<div className={`${s.headerButton} ${className}`}>
+		<div className={clsx(s.headerButton, className)}>
 			<Image alt="logo" src={src} width={13} height={17} />
 			{counterContent}
 		</div>

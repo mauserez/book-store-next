@@ -1,7 +1,8 @@
-import { PropsWithChildren } from "react";
+import { ComponentProps } from "react";
 import s from "./PageTitle.module.css";
 
-export default function PageTitle(props: PropsWithChildren) {
+type PageTitleProps = ComponentProps<"div">;
+export default function PageTitle(props: PageTitleProps) {
 	const { children } = props;
 	return <div className={s.title}>{children}</div>;
 }

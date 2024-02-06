@@ -42,7 +42,7 @@ export default function useSwifty(
 		[state, lastIndex]
 	);
 
-	const handlePause: HandlePauseType = (status) => {
+	const handlePause: HandlePauseType = () => {
 		setState({ ...state, pause: !state.pause });
 	};
 

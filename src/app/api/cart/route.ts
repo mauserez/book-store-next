@@ -24,9 +24,8 @@ export async function GET() {
 export async function DELETE() {
 	const cart = await jsonServer
 		.delete<CartItemType[]>("/cart")
-		.then((response) => {
-			const res = response.data;
-			return res;
+		.then(() => {
+			return true;
 		})
 		.catch((error) => {
 			if (error.response) {
@@ -34,7 +33,7 @@ export async function DELETE() {
 				console.log(error.response.status);
 				console.log(error.response.headers);
 			}
-			return [];
+			return false;
 		});
 
 	return NextResponse.json(cart);
