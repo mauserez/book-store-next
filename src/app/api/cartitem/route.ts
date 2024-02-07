@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import jsonServer from "@/src/shared/axios";
+import { CatalogItemType } from "@/src/shared/redux/slices/cart/cartSlice";
 
-export async function PUT(req: NextRequest) {
+export async function DELETE(req: NextRequest) {
 	const request = await req.json();
 
 	const result = await jsonServer
-		.patch<boolean>(`/cart/${request.id}`, { count: request.count })
+		.delete(`/cart/${request.id}`)
 		.then(() => {
 			return true;
 		})
@@ -15,28 +16,52 @@ export async function PUT(req: NextRequest) {
 				console.log(error.response.status);
 				console.log(error.response.headers);
 			}
-			return false;
+			throw Error("Can't delete item");
 		});
 
 	return NextResponse.json(result);
 }
 
 export async function POST(req: NextRequest) {
-	const request = await req.json();
+	const item = (await req.json()) as CatalogItemType;
 
-	const result = await jsonServer
-		.delete<boolean>(`/cart/${request.id}`)
-		.then(() => {
-			return true;
+	const cart = await jsonServer
+		.post("/cart", item)
+		.then((response) => {
+			const res = response.data;
+			return res;
 		})
 		.catch((error) => {
+			console.log(error);
 			if (error.response) {
 				console.log(error.response.data);
 				console.log(error.response.status);
 				console.log(error.response.headers);
 			}
-			return false;
+			return [];
 		});
 
-	return NextResponse.json(result);
+	return NextResponse.json(cart);
+}
+
+export async function PUT(req: NextRequest) {
+	const item = (await req.json()) as CatalogItemType;
+
+	const cart = await jsonServer
+		.post("/cart", item)
+		.then((response) => {
+			const res = response.data;
+			return res;
+		})
+		.catch((error) => {
+			console.log(error);
+			if (error.response) {
+				console.log(error.response.data);
+				console.log(error.response.status);
+				console.log(error.response.headers);
+			}
+			return [];
+		});
+
+	return NextResponse.json(cart);
 }

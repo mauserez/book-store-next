@@ -8,11 +8,12 @@ type ButtonIconProps = {
 	className?: string;
 	src: string;
 	counter?: number | null;
-	link?: string;
+	link?: string | boolean;
+	onClick?: () => void;
 };
 
 export const ButtonIcon = (props: ButtonIconProps) => {
-	const { className, src, counter, link } = props;
+	const { className, src, counter, link, onClick } = props;
 
 	const counterContent =
 		counter === undefined || counter === null ? null : (
@@ -20,13 +21,13 @@ export const ButtonIcon = (props: ButtonIconProps) => {
 		);
 
 	const button = (
-		<div className={clsx(s.headerButton, className)}>
+		<div onClick={onClick} className={clsx(s.headerButton, className)}>
 			<Image alt="logo" src={src} width={13} height={17} />
 			{counterContent}
 		</div>
 	);
 
-	if (link) {
+	if (link && typeof link !== "boolean") {
 		return <Link href={link}>{button}</Link>;
 	}
 

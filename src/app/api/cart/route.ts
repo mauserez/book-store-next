@@ -39,24 +39,3 @@ export async function DELETE() {
 	return NextResponse.json(cart);
 }
 
-export async function POST(req: NextRequest) {
-	const item = (await req.json()) as CartItemType;
-
-	const cart = await jsonServer
-		.post<CartItemType[]>("/cart", item)
-		.then((response) => {
-			const res = response.data;
-			return res;
-		})
-		.catch((error) => {
-			console.log(error);
-			if (error.response) {
-				console.log(error.response.data);
-				console.log(error.response.status);
-				console.log(error.response.headers);
-			}
-			return [];
-		});
-
-	return NextResponse.json(cart);
-}
