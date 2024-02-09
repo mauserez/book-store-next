@@ -4,7 +4,7 @@ import { CatalogApiProps, CatalogItemType } from "@/src/app/api/catalog/route";
 
 import { createAppSlice } from "../../createAppSlice";
 import { type PayloadAction } from "@reduxjs/toolkit";
-import { getBooks } from "./asyncThunks";
+import { getBooks } from "./thunks";
 
 export type ApiStatusType =
 	| "idle"

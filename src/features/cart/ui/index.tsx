@@ -1,5 +1,5 @@
 import AddToCart from "./add-to-cart/AddToCart";
-import { PlusMinus } from "./plus-minus/PlusMinus";
-import { RemoveFromCart } from "./remove-item/RemoveItem";
+import { ToggleCartItem } from "./toggle-cart-item-count/ToggleCartItemCount";
+import { DeleteCartItem } from "./delete-cart-item/DeleteCartItem";
 
-export { AddToCart, RemoveFromCart, PlusMinus };
+export { AddToCart, ToggleCartItem, DeleteCartItem };

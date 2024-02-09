@@ -1,6 +1,6 @@
 "use client";
 import { ButtonIcon } from "..";
-import { LoginForm } from "@/src/entities/login/ui/LoginForm";
+import { LoginForm } from "@/src/features/auth/login/ui/LoginForm";
 import s from "./ProfileIcon.module.css";
 import { useState } from "react";
 

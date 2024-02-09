@@ -9,7 +9,7 @@ import {
 
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { useEffect, useState } from "react";
-import { getBooks } from "@/src/shared/redux/slices/catalog/asyncThunks";
+import { getBooks } from "@/src/shared/redux/slices/catalog/thunks";
 
 import { LoadMore } from "@/src/features/catalog/load-more";
 import { Loader } from "@/src/shared/ui/loaders";
@@ -35,6 +35,8 @@ export default function ItemList() {
 		setMounted(true);
 	}, [catalogItems]);
 
+	const noItems = mounted ? <NoItems /> : null;
+
 	return (
 		<div className={s.itemListWrap}>
 			{catalogApiStatus !== "loading" ? (
@@ -44,9 +46,9 @@ export default function ItemList() {
 							return <Item key={book.id + i + Math.random()} item={book} />;
 						})}
 					</div>
-				) : mounted ? (
-					<NoItems />
-				) : null
+				) : (
+					noItems
+				)
 			) : (
 				<Loader />
 			)}

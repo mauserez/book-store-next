@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { selectApiStatus } from "@/src/shared/redux/slices/catalog/catalogSlice";
-import { getBooks } from "@/src/shared/redux/slices/catalog/asyncThunks";
+import { getBooks } from "@/src/shared/redux/slices/catalog/thunks";
 import { Button } from "@/src/shared/ui/buttons";
 import s from "./LoadMore.module.css";
 

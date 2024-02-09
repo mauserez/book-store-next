@@ -8,9 +8,11 @@ export const CartTable = () => {
 	const cart = useAppSelector(selectCart);
 	return (
 		<section className={s.cartTable}>
-			{cart.map((cartItem) => {
-				return <CartRow key={cartItem.id} cartItem={cartItem} />;
-			})}
+			{cart.length > 0
+				? cart.map((cartItem) => {
+						return <CartRow key={cartItem.id} item={cartItem} />;
+				  })
+				: null}
 		</section>
 	);
 };

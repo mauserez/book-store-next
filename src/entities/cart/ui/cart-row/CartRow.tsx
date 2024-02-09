@@ -1,21 +1,27 @@
-import { Item, BookPrice } from "@/src/entities/catalog";
-import { CartItemType } from "@/src/shared/redux/slices/cart/cartSlice";
-import CartItemActionButton from "../cart-item-action-button/CartItemActionButton";
-import s from "./CartRow.module.css";
-import { RemoveFromCart } from "@/src/features/cart/ui";
+import { numberWithSpaces } from "@/src/shared/utils/number";
 
-type CartRowProps = { cartItem: CartItemType };
+import { CartItemType } from "@/src/shared/redux/slices/cart/cartSlice";
+import { CartItem, CartItemActionButton } from "@/src/entities/cart/ui";
+import { DeleteCartItem } from "@/src/features/cart/ui";
+
+import s from "./CartRow.module.css";
+
+type CartRowProps = { item: CartItemType };
 export const CartRow = (props: CartRowProps) => {
-	const { cartItem } = props;
-	const item = cartItem.item;
+	const { item } = props;
 
 	return (
 		<div className={s.cartRow}>
-			<Item behavior="cart" item={item} />
-			<CartItemActionButton item={item} />
-			<BookPrice {...item.saleInfo} />
+			<CartItem item={item} />
+			<CartItemActionButton itemId={item.item_id} />
+			{
+				<div className={s.price}>
+					<span>{item.currency}</span>
+					<span>{numberWithSpaces(item.price)}</span>
+				</div>
+			}
 			<div className={s.delivery}>Shipping:delivery</div>
-			<RemoveFromCart cartItemId={cartItem.id} />
+			<DeleteCartItem id={item.id} />
 		</div>
 	);
 };

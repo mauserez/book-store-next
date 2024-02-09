@@ -1,8 +1,9 @@
 "use client";
+
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { catalogReducer, cartReducer } from "./reducers";
+import { catalogReducer, cartReducer /* , authReducer */ } from "./reducers";
 
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "./nextStorage";
@@ -16,15 +17,16 @@ import {
 	REGISTER,
 } from "redux-persist";
 
-const catalogReducerPersistConfig = {
+const catalogPersistConfig = {
 	key: "catalog",
 	storage: storage,
 	whitelist: ["filter"],
 };
 
 const rootReducer = combineReducers({
-	catalog: persistReducer(catalogReducerPersistConfig, catalogReducer),
+	catalog: persistReducer(catalogPersistConfig, catalogReducer),
 	cart: cartReducer,
+	//auth: persistReducer(authReducerPersistConfig, authReducer),
 });
 
 const rootPersistConfig = {
@@ -34,7 +36,7 @@ const rootPersistConfig = {
 
 export default persistReducer(rootPersistConfig, rootReducer);
 
-const store = configureStore({
+export const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware({

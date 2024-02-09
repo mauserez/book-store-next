@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { ButtonIcon } from "..";
 import { useCallback, useLayoutEffect, useState } from "react";
-import { getCart } from "@/src/shared/redux/slices/cart/asyncThunks/cart";
+import { getCart } from "@/src/shared/redux/slices/cart/thunks/cart";
 import {
 	selectCartLen,
 	selectStatus,

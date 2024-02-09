@@ -2,9 +2,10 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import s from "./LoginForm.module.css";
+
 import { Button } from "@/src/shared/ui/buttons";
 import clsx from "clsx";
+import s from "./LoginForm.module.css";
 
 const validSchema = Yup.object().shape({
 	email: Yup.string().email("Invalid email").required("Required"),

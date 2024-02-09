@@ -1,11 +1,25 @@
-import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { createAppSlice } from "../../createAppSlice";
-import { createCartItem, clearCart, getCart } from "./asyncThunks/cart";
-import { toggleCartItemCount, deleteCartItem } from "./asyncThunks/cartItem";
+import { clearCart, getCart } from "./thunks/cart";
+import {
+	createCartItem,
+	deleteCartItem,
+	toggleCartItemCount,
+} from "./thunks/cartItem";
 
 export type CartItemType = {
-	id: string;
-	item: CatalogItemType;
+	id: number;
+	item_id: string;
+	price: number;
+	user_id: number | null;
+	temp_user_id: string | null;
+	img_url: string | null;
+	title: string | null;
+	description: string;
+	rating: number | null;
+	reviews: number | null;
+	author: string | null;
+	delivery: string | null;
+	currency: string;
 	count: number;
 };
 
@@ -36,6 +50,11 @@ export const cartSlice = createAppSlice({
 
 		/* Добавление нового объекта корзины */
 		builder.addCase(createCartItem.fulfilled, (state) => {
+			console.log(123);
+			state.status = "refreshed";
+		});
+		builder.addCase(createCartItem.rejected, (state, action) => {
+			console.log("Не добавить новый объект.Скорее всего он там уже");
 			state.status = "refreshed";
 		});
 
@@ -57,10 +76,14 @@ export const cartSlice = createAppSlice({
 	selectors: {
 		selectCart: (state) => state.cart,
 		selectCartLen: (state) => {
+			console.log(state.cart);
 			let len = 0;
-			state.cart.map((item) => {
-				len += item.count;
-			});
+			if (state.cart.length > 0) {
+				state.cart.forEach((i) => {
+					len += i.count;
+				});
+			}
+
 			return len;
 		},
 		selectStatus: (state) => state.status,

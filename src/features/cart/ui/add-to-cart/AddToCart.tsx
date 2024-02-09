@@ -1,5 +1,5 @@
 import { Button } from "@/src/shared/ui/buttons";
-import { createCartItem } from "@/src/shared/redux/slices/cart/asyncThunks/cart";
+import { createCartItem } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { useAppDispatch } from "@/src/shared/redux/hooks";
 

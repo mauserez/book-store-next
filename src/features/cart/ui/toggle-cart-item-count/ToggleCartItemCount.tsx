@@ -1,32 +1,41 @@
 "use client";
-import { Button } from "@/src/shared/ui/buttons";
-import s from "./PlusMinus.module.css";
+
 import { ComponentProps } from "react";
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
-import { selectCart } from "@/src/shared/redux/slices/cart/cartSlice";
-import { CatalogItemType } from "@/src/app/api/catalog/route";
-import { toggleCartItemCount } from "@/src/shared/redux/slices/cart/asyncThunks/cartItem";
-import clsx from "clsx";
+import { Button } from "@/src/shared/ui/buttons";
 
-type PlusMinusProps = { item: CatalogItemType };
-export const PlusMinus = (props: PlusMinusProps) => {
-	const { item } = props;
+import { selectCart } from "@/src/shared/redux/slices/cart/cartSlice";
+import { toggleCartItemCount } from "@/src/shared/redux/slices/cart/thunks/cartItem";
+
+import clsx from "clsx";
+import s from "./ToggleCartItemCount.module.css";
+
+type ToggleCartItemCountProps = { itemId: string };
+export const ToggleCartItem = (props: ToggleCartItemCountProps) => {
+	const { itemId } = props;
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector(selectCart);
+	const item = cart.find((i) => {
+		return itemId === i.item_id;
+	});
 
-	const count =
-		cart.find((i) => {
-			return i.id === item.id;
-		})?.count ?? 0;
+	console.log(item);
+
+	if (!item) {
+		return null;
+	}
+
+	const id = item.id;
+	const count = item.count;
 
 	const handleMinus = () => {
-		if (count >= 1) {
-			dispatch(toggleCartItemCount({ id: item.id, count: count - 1 }));
+		if (item.count >= 1) {
+			dispatch(toggleCartItemCount({ id: id, count: count - 1 }));
 		}
 	};
 
 	const handlePlus = () => {
-		dispatch(toggleCartItemCount({ id: item.id, count: count + 1 }));
+		dispatch(toggleCartItemCount({ id: id, count: count + 1 }));
 	};
 
 	return (
