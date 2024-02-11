@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
 let prisma: PrismaClient;
 
@@ -36,8 +35,4 @@ export const getCurrentUser = () => {
 		userExists: userExists,
 		userRawCond: userRawCond,
 	};
-};
-
-export const nextResponseUserError = () => {
-	return NextResponse.json({ message: "No session user" }, { status: 401 });
 };

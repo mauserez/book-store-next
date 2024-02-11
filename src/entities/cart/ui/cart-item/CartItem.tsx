@@ -7,7 +7,6 @@ import { CartItemInfo } from "@/src/entities/cart/ui";
 import clsx from "clsx";
 import s from "./CartItem.module.css";
 
-export type ItemBehavior = "catalog" | "cart";
 type CartItemProps = ComponentProps<"div"> & {
 	item: CartItemType;
 };
@@ -18,12 +17,9 @@ export default function CartItem(props: CartItemProps) {
 	const imgPlaceholder = "/img/placeholder2.png";
 	const bookImage = item.img_url ?? imgPlaceholder;
 
-	let bookClass = "";
-	let bookImageWrapClass = "";
-
 	return (
-		<div className={clsx(s.book, bookClass, className)} {...divProps}>
-			<div className={clsx(s.bookImageWrap, bookImageWrapClass)}>
+		<div className={clsx(s.book, className)} {...divProps}>
+			<div className={s.bookImageWrap}>
 				<Image
 					alt="Книга"
 					fill

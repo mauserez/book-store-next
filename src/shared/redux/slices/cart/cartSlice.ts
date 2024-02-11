@@ -50,11 +50,10 @@ export const cartSlice = createAppSlice({
 
 		/* Добавление нового объекта корзины */
 		builder.addCase(createCartItem.fulfilled, (state) => {
-			console.log(123);
 			state.status = "refreshed";
 		});
-		builder.addCase(createCartItem.rejected, (state, action) => {
-			console.log("Не добавить новый объект.Скорее всего он там уже");
+		builder.addCase(createCartItem.rejected, (state) => {
+			console.log("Уже в корзине");
 			state.status = "refreshed";
 		});
 

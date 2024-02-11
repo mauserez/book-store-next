@@ -22,6 +22,7 @@ export const getBooks = createAsyncThunk(
 		if (!isLoading(catalog.apiStatus)) {
 			return;
 		}
+
 		let newStartIndex = 0;
 
 		if (type === "redraw") {
@@ -39,12 +40,7 @@ export const getBooks = createAsyncThunk(
 		}
 
 		const filter = { ...catalog.filter, startIndex: newStartIndex };
-		console.log(filter);
 
-		return axios
-			.post<CatalogItemType[]>("/api/catalog", filter)
-			.then((response) => {
-				return response.data;
-			});
+		return (await axios.post<CatalogItemType[]>("/api/catalog", filter)).data;
 	}
 );

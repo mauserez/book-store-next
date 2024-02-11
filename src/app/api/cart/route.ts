@@ -1,9 +1,7 @@
 import { CartItemType } from "@/src/shared/redux/slices/cart/cartSlice";
 
-import prisma, {
-	getCurrentUser,
-	nextResponseUserError,
-} from "@/src/shared/utils/prisma";
+import prisma, { getCurrentUser } from "@/src/shared/utils/prisma";
+import { nextResponseUserError } from "@/src/shared/utils/error";
 
 import { NextResponse, NextRequest } from "next/server";
 

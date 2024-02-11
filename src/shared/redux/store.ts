@@ -26,7 +26,6 @@ const catalogPersistConfig = {
 const rootReducer = combineReducers({
 	catalog: persistReducer(catalogPersistConfig, catalogReducer),
 	cart: cartReducer,
-	//auth: persistReducer(authReducerPersistConfig, authReducer),
 });
 
 const rootPersistConfig = {

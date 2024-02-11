@@ -1,40 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type CartItemType } from "../cartSlice";
 import { CatalogItemType } from "@/src/app/api/catalog/route";
-import { showError } from "@/src/shared/utils/axios";
-import { getStoreUsers } from "../../auth/utils";
 import { api } from "@/src/shared/axios";
+import { errorText } from "@/src/shared/utils/axios";
 
-export type ToggleCartItemCountType = { id: number; count: number };
-
-export type CartItemCountUpdateType = {
-	id: number;
-	count: number;
-};
+export type CartItemCountType = { itemId: string; count: number };
 
 export const toggleCartItemCount = createAsyncThunk(
 	"cart/toggleCartItemCount",
-	async (args: ToggleCartItemCountType) => {
-		const { id, count } = args;
-
-		const cartItem: CartItemCountUpdateType = {
-			id: id,
-			count: count,
-		};
-
-		const { data } = await api.put("/cart-item", cartItem);
-
+	async (item: CartItemCountType) => {
+		const { data } = await api.put("/cart-item", item);
 		return data;
 	}
 );
 
 export const deleteCartItem = createAsyncThunk(
 	"cart/deleteCartItem",
-	async (id: number, store) => {
-		const users = getStoreUsers(store);
-		return await api.delete("/cart-item", {
-			data: { id: id, temp_user_id: users.tempUserId },
+	async (itemId: string) => {
+		const response = await api.delete("/cart-item", {
+			data: { itemId: itemId },
 		});
+
+		return response.data;
 	}
 );
 
@@ -60,7 +47,7 @@ export const createCartItem = createAsyncThunk(
 		try {
 			return (await api.post("/cart-item", cartItem)).data;
 		} catch (error) {
-			showError(error);
+			console.log(errorText(error));
 		}
 	}
 );

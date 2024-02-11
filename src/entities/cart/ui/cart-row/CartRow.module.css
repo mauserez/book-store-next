@@ -31,3 +31,10 @@
 		gap: 16px;
 	}
 }
+
+.price {
+	font-size: 18px;
+	font-weight: 700;
+	display: flex;
+	gap: 4px;
+}

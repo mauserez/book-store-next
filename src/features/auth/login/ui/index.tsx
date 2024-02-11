@@ -1,2 +1,2 @@
-import { LoginForm } from "./LoginFormPrev";
-export { LoginForm };
+import { LoginForm, LoginFormProps, LoginFormFieldsType } from "./LoginForm";
+export { LoginForm, type LoginFormProps, type LoginFormFieldsType };

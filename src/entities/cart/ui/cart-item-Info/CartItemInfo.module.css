@@ -1,5 +1,5 @@
 .info {
-	padding: 49px 0 48px 26px;
+	padding: 39px 0 0 25px;
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
@@ -10,14 +10,10 @@
 	}
 }
 
-.infoCart {
-	padding: 39px 0 0 25px;
-}
-
 .header {
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
+	gap: 11px;
 	flex-wrap: wrap;
 
 	.authors {
@@ -27,9 +23,6 @@
 		font-family: var(--font-open);
 		font-weight: 400;
 		text-transform: capitalize;
-	}
-
-	.authorsCart {
 		order: 1;
 	}
 
@@ -37,19 +30,12 @@
 		color: var(--color-black);
 		font-size: 16px;
 		font-weight: 700;
-		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		display: -webkit-box;
 		overflow: hidden;
-	}
-
-	.titleCart {
 		-webkit-line-clamp: inherit;
 		overflow: auto;
 	}
-}
-.headerCart {
-	gap: 11px;
 }
 
 .description {

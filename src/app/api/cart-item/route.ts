@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
 	NewCartItemType,
-	CartItemCountUpdateType,
+	CartItemCountType,
 } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 
 import prisma, {
@@ -10,7 +10,7 @@ import prisma, {
 } from "@/src/shared/utils/prisma";
 
 export async function PUT(req: NextRequest) {
-	const item = (await req.json()) as CartItemCountUpdateType;
+	const item = (await req.json()) as CartItemCountType;
 	const currentUser = getCurrentUser();
 
 	if (!currentUser.userExists) {
@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest) {
 	const result = await prisma.$queryRawUnsafe(`
 		UPDATE CART
 		SET COUNT = ${item.count}
-		WHERE id = ${item.id}
+		WHERE item_id = '${item.itemId}'
 		${cond}
 	`);
 
@@ -74,19 +74,23 @@ async function cartItemNotExists(item: NewCartItemType, userCond: string) {
 }
 
 export async function DELETE(req: NextRequest) {
-	const id = await req.json();
+	const request = await req.json();
 	const currentUser = getCurrentUser();
 
 	if (!currentUser.userExists) {
 		return nextResponseUserError;
 	}
 
-	const result = prisma.$queryRawUnsafe(`
+	if (!request.itemId) {
+		return NextResponse.json({ message: "No item to delete" }, { status: 500 });
+	}
+
+	await prisma.$queryRawUnsafe(`
 		DELETE
-		FROM CART
-		WHERE id = ${id}
+		FROM cart
+		WHERE item_id = '${request.itemId}'
 		${currentUser.userRawCond}
 	`);
 
-	return NextResponse.json(result);
+	return NextResponse.json(true);
 }

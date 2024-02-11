@@ -21,7 +21,7 @@ export const CartRow = (props: CartRowProps) => {
 				</div>
 			}
 			<div className={s.delivery}>Shipping:delivery</div>
-			<DeleteCartItem id={item.id} />
+			<DeleteCartItem itemId={item.item_id} />
 		</div>
 	);
 };

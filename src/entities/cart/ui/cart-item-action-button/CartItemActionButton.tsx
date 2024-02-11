@@ -14,9 +14,7 @@ export default function CartItemActionButton(props: CartItemActionButtonProps) {
 	const { itemId, catalogItem, ...otherProps } = props;
 
 	const isInCart =
-		cart.length > 0
-			? cart.find((cartItem) => itemId === cartItem.item_id)
-			: false;
+		cart.length > 0 ? cart.find((cartItem) => itemId === cartItem.item_id) : false;
 
 	return (
 		<div {...otherProps}>

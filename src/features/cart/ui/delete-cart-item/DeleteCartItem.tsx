@@ -3,17 +3,17 @@ import s from "./DeleteCartItem.module.css";
 import { useAppDispatch } from "@/src/shared/redux/hooks";
 import { deleteCartItem } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 
-type DeleteCartItemProps = { id: number };
+type DeleteCartItemProps = { itemId: string };
 export const DeleteCartItem = (props: DeleteCartItemProps) => {
 	const dispatch = useAppDispatch();
-	const { id } = props;
-
+	const { itemId } = props;
+	console.log(itemId);
 	return (
 		<div className={s.removeBtn}>
 			<TrashFill
 				size={16}
 				onClick={() => {
-					dispatch(deleteCartItem(id));
+					dispatch(deleteCartItem(itemId));
 				}}
 			/>
 		</div>

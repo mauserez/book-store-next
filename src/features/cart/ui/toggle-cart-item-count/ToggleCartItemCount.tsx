@@ -19,23 +19,20 @@ export const ToggleCartItem = (props: ToggleCartItemCountProps) => {
 		return itemId === i.item_id;
 	});
 
-	console.log(item);
-
 	if (!item) {
 		return null;
 	}
 
-	const id = item.id;
 	const count = item.count;
 
 	const handleMinus = () => {
 		if (item.count >= 1) {
-			dispatch(toggleCartItemCount({ id: id, count: count - 1 }));
+			dispatch(toggleCartItemCount({ itemId: itemId, count: count - 1 }));
 		}
 	};
 
 	const handlePlus = () => {
-		dispatch(toggleCartItemCount({ id: id, count: count + 1 }));
+		dispatch(toggleCartItemCount({ itemId: itemId, count: count + 1 }));
 	};
 
 	return (

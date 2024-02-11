@@ -3,15 +3,17 @@ import { ButtonIcon } from "..";
 import { LoginForm } from "@/src/features/auth/login/ui/LoginForm";
 import s from "./ProfileIcon.module.css";
 import { useState } from "react";
+import { useSessionUser } from "@/src/shared/utils/session";
 
 export const ProfileIcon = () => {
-	const auth = true;
-	const link = !auth ? false : "/profile";
+	const session = useSessionUser();
+
+	const auth = !!session;
+	const link = auth ? "/profile" : false;
 	const [formHidden, setFormHidden] = useState(true);
 
 	return (
 		<div className={s.iconWrap}>
-			{/* /profile */}
 			<ButtonIcon
 				onClick={() => {
 					if (!auth) {
@@ -21,7 +23,13 @@ export const ProfileIcon = () => {
 				link={link}
 				src="icons/profile.svg"
 			/>
-			{!auth && !formHidden ? <LoginForm /> : null}
+			{!auth && !formHidden ? (
+				<LoginForm
+					hideForm={() => {
+						setFormHidden(true);
+					}}
+				/>
+			) : null}
 		</div>
 	);
 };

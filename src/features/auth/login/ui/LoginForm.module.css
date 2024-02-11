@@ -9,7 +9,7 @@
 	transform: translateX(calc(-50% + var(--login-icon-width)));
 	border: 1px solid #ddd;
 	margin-top: 14px;
-	padding: 17px 39px 36px 26px;
+	padding: 17px 26px 36px 26px;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
@@ -22,6 +22,16 @@
 	align-self: center;
 	font-weight: 700;
 	font-size: 16px;
+	display: flex;
+	gap: 16px;
+}
+
+.titleItem {
+	cursor: pointer;
+}
+
+.titleInactive {
+	color: #ccc;
 }
 
 .label {
@@ -42,6 +52,11 @@
 	font-weight: 700;
 	padding: 10px 9px;
 	outline: none;
+	width: 100%;
+}
+
+.input::placeholder {
+	color: #ccc;
 }
 
 .inputError {
@@ -70,4 +85,5 @@ button.submit:hover {
 	border: none;
 	width: 100%;
 	min-height: 32px;
+	text-transform: uppercase;
 }

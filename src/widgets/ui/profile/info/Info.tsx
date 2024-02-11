@@ -1,8 +1,12 @@
 import { Button } from "@/src/shared/ui/buttons";
-import s from "./Info.module.css";
 import Image from "next/image";
+import { getSessionUser } from "@/src/shared/utils/session";
+import s from "./Info.module.css";
 
-export default function Info() {
+export default async function Info() {
+	const session = await getSessionUser();
+	console.log(session);
+	console.log(4444);
 	return (
 		<div className={s.card}>
 			<div className={s.avatar}>
