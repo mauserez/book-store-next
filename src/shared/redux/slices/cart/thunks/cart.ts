@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type CartItemType } from "../cartSlice";
 import { api } from "@/src/shared/axios";
 
-export const getCart = createAsyncThunk("cart/getCart", async (_, store) => {
+export const getCart = createAsyncThunk("cart/getCart", async () => {
 	const response = await api.get<CartItemType[]>(`/cart`);
 	return response.data ?? [];
 });

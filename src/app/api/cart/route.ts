@@ -23,7 +23,7 @@ export async function DELETE() {
 	const user = await getUserAuth();
 
 	if (!user) {
-		return nextResponseUserError;
+		return nextResponseUserError();
 	}
 
 	const cart = await prisma.cart.deleteMany({

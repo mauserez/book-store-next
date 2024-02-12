@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 
 import { api } from "@/src/shared/axios";
 import { errorText } from "@/src/shared/utils/axios";
-import { useRouter } from "next/navigation";
 
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -35,7 +34,6 @@ export type LoginFormFieldsType = {
 };
 
 export const LoginForm = () => {
-	const router = useRouter();
 	const [signType, setSignType] = useState<SignType>("login");
 	const [error, setError] = useState("");
 
@@ -59,8 +57,9 @@ export const LoginForm = () => {
 							...credentials,
 							redirect: false,
 						});
+
 						if (!res?.error) {
-							router.refresh();
+							location.reload();
 						} else {
 							setError(res.error);
 						}

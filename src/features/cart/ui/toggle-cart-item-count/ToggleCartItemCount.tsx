@@ -3,6 +3,7 @@
 import { ComponentProps } from "react";
 import { useAppDispatch, useAppSelector } from "@/src/shared/redux/hooks";
 import { Button } from "@/src/shared/ui/buttons";
+import Image from "next/image";
 
 import { selectCart } from "@/src/shared/redux/slices/cart/cartSlice";
 import { toggleCartItemCount } from "@/src/shared/redux/slices/cart/thunks/cartItem";
@@ -51,7 +52,7 @@ const Btn = (props: BtnProps) => {
 
 	return (
 		<div className={clsx(s.btn, disabledClass)} {...divProps}>
-			<img src={src} alt="Кнопка корзины" />
+			<Image width={22} height={25} src={src} alt="Кнопка корзины" />
 		</div>
 	);
 };

@@ -9,6 +9,24 @@
 	opacity: 0.5;
 }
 
+.bounce {
+	animation-duration: 4s;
+	animation-name: plusMinusBounce;
+}
+
+@keyframes plusMinusBounce {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(2);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
 .counter {
 	color: var(--color-gray);
 	font-family: var(--font-mont);

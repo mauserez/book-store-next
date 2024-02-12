@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 	const user = await getUserAuth();
 
 	if (!user) {
-		return nextResponseUserError;
+		return nextResponseUserError();
 	}
 
 	const exists = await prisma.cart.findFirst({
@@ -22,13 +22,17 @@ export async function POST(req: NextRequest) {
 		},
 	});
 
-	if (!exists) {
-		item.user_id = user.id;
-		await prisma.cart.create({ data: item });
-		return NextResponse.json(true);
+	if (exists) {
+		return NextResponse.json(
+			{ message: "Item already exists" },
+			{ status: 400 }
+		);
 	}
 
-	return NextResponse.json(false);
+	item.user_id = user.id;
+	await prisma.cart.create({ data: item });
+
+	return NextResponse.json({ message: "Item added" }, { status: 200 });
 }
 
 export async function PUT(req: NextRequest) {
@@ -46,7 +50,7 @@ export async function PUT(req: NextRequest) {
 		);
 	}
 
-	const result = await prisma.cart.updateMany({
+	await prisma.cart.updateMany({
 		where: {
 			AND: [{ item_id: item.itemId }, { user_id: user.id }],
 		},
@@ -55,7 +59,7 @@ export async function PUT(req: NextRequest) {
 		},
 	});
 
-	return NextResponse.json(result);
+	return NextResponse.json({ message: "Item updated" }, { status: 200 });
 }
 
 import { CartItemDeletedType } from "@/src/shared/redux/slices/cart/thunks/cartItem";
@@ -65,7 +69,7 @@ export async function DELETE(req: NextRequest) {
 	const user = await getUserAuth();
 
 	if (!user) {
-		return nextResponseUserError;
+		return nextResponseUserError();
 	}
 
 	if (!item.itemId) {

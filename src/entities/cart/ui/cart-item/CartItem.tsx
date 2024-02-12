@@ -22,10 +22,10 @@ export default function CartItem(props: CartItemProps) {
 			<div className={s.bookImageWrap}>
 				<Image
 					alt="Книга"
-					fill
+					width={100}
+					height={145}
 					src={bookImage}
 					quality={75}
-					sizes="(max-width: 320px) 100vw, 320px"
 					priority
 				/>
 			</div>

@@ -2,7 +2,7 @@
 /* Core */
 
 import { Provider } from "react-redux";
-import { appStore, appPersistor } from "./store";
+import { appStore, appPersistor } from "./src/shared/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 /* import cookie from "js-cookie";
 import { makeTempUserId } from "../utils/user"; */
@@ -14,7 +14,7 @@ export const Providers = (props: React.PropsWithChildren) => {
 	} */
 
 	return (
-		<SessionProvider>
+		<SessionProvider basePath="/api/auth">
 			<Provider store={appStore}>
 				<PersistGate loading={null} persistor={appPersistor}>
 					{() => {

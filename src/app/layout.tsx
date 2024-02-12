@@ -5,7 +5,7 @@ import "@/src/styles/reset.css";
 import "@/src/styles/normalize.css";
 import "@/src/styles/globals.css";
 
-import { Providers } from "../shared/redux/providers";
+import { Providers } from "../../providers";
 
 const montserrat = Montserrat({
 	weight: ["500", "600", "700", "900"],

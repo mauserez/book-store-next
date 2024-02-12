@@ -16,6 +16,10 @@
 	min-height: 312px;
 	box-shadow: 0 4px 4px #888;
 	align-items: center;
+
+	@media screen and (max-width: 800px) {
+		left: -50px;
+	}
 }
 
 .title {

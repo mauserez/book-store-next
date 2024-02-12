@@ -8,7 +8,7 @@ export type NewCartItemType = Omit<CartItemType, "id">;
 
 export const createCartItem = createAsyncThunk(
 	"cart/createCartItem",
-	async (item: CatalogItemType, store) => {
+	async (item: CatalogItemType) => {
 		const cartItem = {
 			item_id: item.id,
 			price: item.saleInfo?.retailPrice?.amount ?? 0,

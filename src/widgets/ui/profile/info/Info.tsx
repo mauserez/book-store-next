@@ -2,10 +2,14 @@
 import { Button } from "@/src/shared/ui/buttons";
 import Image from "next/image";
 import s from "./Info.module.css";
-import { useSessionUser } from "@/src/shared/utils/clientSession";
+import { useUserAuth } from "@/src/shared/utils/clientSession";
 
 export default function Info() {
-	const user = useSessionUser();
+	const user = useUserAuth();
+
+	if (!user) {
+		return null;
+	}
 
 	return (
 		<div className={s.card}>
@@ -15,7 +19,7 @@ export default function Info() {
 			<div className={s.info}>
 				<div className={s.block}>
 					<div className={s.title}>YOUR NAME</div>
-					<div className={s.value}>{user?.id}</div>
+					<div className={s.value}>{user?.name}</div>
 				</div>
 				<div className={s.block}>
 					<div className={s.title}>YOUR EMAIL</div>
