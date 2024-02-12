@@ -4,27 +4,6 @@ import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { api } from "@/src/shared/axios";
 import { errorText } from "@/src/shared/utils/axios";
 
-export type CartItemCountType = { itemId: string; count: number };
-
-export const toggleCartItemCount = createAsyncThunk(
-	"cart/toggleCartItemCount",
-	async (item: CartItemCountType) => {
-		const { data } = await api.put("/cart-item", item);
-		return data;
-	}
-);
-
-export const deleteCartItem = createAsyncThunk(
-	"cart/deleteCartItem",
-	async (itemId: string) => {
-		const response = await api.delete("/cart-item", {
-			data: { itemId: itemId },
-		});
-
-		return response.data;
-	}
-);
-
 export type NewCartItemType = Omit<CartItemType, "id">;
 
 export const createCartItem = createAsyncThunk(
@@ -49,5 +28,30 @@ export const createCartItem = createAsyncThunk(
 		} catch (error) {
 			console.log(errorText(error));
 		}
+	}
+);
+
+export type CartItemCountType = { itemId: string; count: number };
+
+export const toggleCartItemCount = createAsyncThunk(
+	"cart/toggleCartItemCount",
+	async (item: CartItemCountType) => {
+		const { data } = await api.put("/cart-item", item);
+		return data;
+	}
+);
+
+export type CartItemDeletedType = {
+	itemId: string;
+};
+
+export const deleteCartItem = createAsyncThunk(
+	"cart/deleteCartItem",
+	async (itemId: string) => {
+		const response = await api.delete("/cart-item", {
+			data: { itemId: itemId },
+		});
+
+		return response.data;
 	}
 );

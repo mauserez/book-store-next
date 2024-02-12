@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 
 import { api } from "@/src/shared/axios";
 import { errorText } from "@/src/shared/utils/axios";
-
 import { useRouter } from "next/navigation";
 
 import * as Yup from "yup";
@@ -35,12 +34,7 @@ export type LoginFormFieldsType = {
 	password: string;
 };
 
-export type LoginFormProps = {
-	hideForm?: () => void;
-};
-
-export const LoginForm = (props: LoginFormProps) => {
-	const { hideForm = () => {} } = props;
+export const LoginForm = () => {
 	const router = useRouter();
 	const [signType, setSignType] = useState<SignType>("login");
 	const [error, setError] = useState("");
@@ -61,13 +55,20 @@ export const LoginForm = (props: LoginFormProps) => {
 				onSubmit={async (credentials) => {
 					handleClearError();
 					if (signType === "login") {
-						await signIn("credentials", credentials);
+						const res = await signIn("credentials", {
+							...credentials,
+							redirect: false,
+						});
+						if (!res?.error) {
+							router.refresh();
+						} else {
+							setError(res.error);
+						}
 					} else {
 						await api
 							.post(`/${signType}`, credentials)
-							.then(() => {
-								hideForm();
-								router.push("/");
+							.then(async () => {
+								await signIn("credentials", credentials);
 							})
 							.catch((error) => {
 								setError(errorText(error));

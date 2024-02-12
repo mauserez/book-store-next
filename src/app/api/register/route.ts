@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 
 import { LoginFormFieldsType } from "@/src/features/auth/login/ui";
-import prisma from "@/src/shared/utils/prisma";
+import prisma from "@/prisma";
 import { somethingGoesWrong } from "@/src/shared/utils/error";
 
 export async function POST(req: NextRequest) {

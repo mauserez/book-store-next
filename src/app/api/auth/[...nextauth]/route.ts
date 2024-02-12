@@ -1,10 +1,12 @@
-import prisma from "@/src/shared/utils/prisma";
-import { AuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@/prisma";
 import bcrypt from "bcrypt";
 
+import NextAuth from "next-auth/next";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { AuthOptions } from "next-auth";
+
 export const authOptions: AuthOptions = {
+	secret: process.env.NEXTAUTH_SECRET,
 	providers: [
 		CredentialsProvider({
 			name: "Credentials",

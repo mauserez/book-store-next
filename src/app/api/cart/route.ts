@@ -1,41 +1,36 @@
-import { CartItemType } from "@/src/shared/redux/slices/cart/cartSlice";
-
-import prisma, { getCurrentUser } from "@/src/shared/utils/prisma";
+import prisma from "@/prisma";
 import { nextResponseUserError } from "@/src/shared/utils/error";
-
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { getUserAuth } from "@/src/shared/utils/serverSession";
 
 export async function GET() {
-	const currentUser = getCurrentUser();
+	const user = await getUserAuth();
 
-	if (!currentUser.userExists) {
+	if (!user) {
 		return nextResponseUserError();
 	}
 
-	let rawSql = `
-		SELECT *
-		FROM cart
-		WHERE 1 = 1
-		${currentUser.userRawCond}
-	`;
-
-	const result = await prisma.$queryRawUnsafe<CartItemType[]>(rawSql);
+	const result = await prisma.cart.findMany({
+		where: {
+			user_id: user.id,
+		},
+	});
 
 	return NextResponse.json(result);
 }
 
-export async function DELETE(req: NextRequest) {
-	const currentUser = getCurrentUser();
+export async function DELETE() {
+	const user = await getUserAuth();
 
-	if (currentUser.userExists) {
+	if (!user) {
 		return nextResponseUserError;
 	}
 
-	const cart = await prisma.$queryRawUnsafe(`
-		DELETE FROM cart
-		WHERE 1=1
-		${currentUser.userRawCond}
-	`);
+	const cart = await prisma.cart.deleteMany({
+		where: {
+			id: user.id,
+		},
+	});
 
 	return NextResponse.json(cart);
 }

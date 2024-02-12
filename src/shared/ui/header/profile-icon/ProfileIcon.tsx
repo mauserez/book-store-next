@@ -3,10 +3,10 @@ import { ButtonIcon } from "..";
 import { LoginForm } from "@/src/features/auth/login/ui/LoginForm";
 import s from "./ProfileIcon.module.css";
 import { useState } from "react";
-import { useSessionUser } from "@/src/shared/utils/session";
+import { useUserAuth } from "@/src/shared/utils/clientSession";
 
 export const ProfileIcon = () => {
-	const session = useSessionUser();
+	const session = useUserAuth();
 
 	const auth = !!session;
 	const link = auth ? "/profile" : false;
@@ -23,13 +23,7 @@ export const ProfileIcon = () => {
 				link={link}
 				src="icons/profile.svg"
 			/>
-			{!auth && !formHidden ? (
-				<LoginForm
-					hideForm={() => {
-						setFormHidden(true);
-					}}
-				/>
-			) : null}
+			{!auth && !formHidden ? <LoginForm /> : null}
 		</div>
 	);
 };

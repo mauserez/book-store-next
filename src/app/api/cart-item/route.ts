@@ -4,17 +4,39 @@ import {
 	CartItemCountType,
 } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 
-import prisma, {
-	getCurrentUser,
-	nextResponseUserError,
-} from "@/src/shared/utils/prisma";
+import prisma from "@/prisma";
+import { nextResponseUserError } from "@/src/shared/utils/error";
+import { getUserAuth } from "@/src/shared/utils/serverSession";
+
+export async function POST(req: NextRequest) {
+	const item = (await req.json()) as NewCartItemType;
+	const user = await getUserAuth();
+
+	if (!user) {
+		return nextResponseUserError;
+	}
+
+	const exists = await prisma.cart.findFirst({
+		where: {
+			AND: [{ user_id: user.id }, { item_id: item.item_id }],
+		},
+	});
+
+	if (!exists) {
+		item.user_id = user.id;
+		await prisma.cart.create({ data: item });
+		return NextResponse.json(true);
+	}
+
+	return NextResponse.json(false);
+}
 
 export async function PUT(req: NextRequest) {
 	const item = (await req.json()) as CartItemCountType;
-	const currentUser = getCurrentUser();
+	const user = await getUserAuth();
 
-	if (!currentUser.userExists) {
-		return nextResponseUserError;
+	if (!user) {
+		return nextResponseUserError();
 	}
 
 	if (item.count < 0) {
@@ -24,73 +46,37 @@ export async function PUT(req: NextRequest) {
 		);
 	}
 
-	const cond = currentUser.userRawCond;
-
-	const result = await prisma.$queryRawUnsafe(`
-		UPDATE CART
-		SET COUNT = ${item.count}
-		WHERE item_id = '${item.itemId}'
-		${cond}
-	`);
+	const result = await prisma.cart.updateMany({
+		where: {
+			AND: [{ item_id: item.itemId }, { user_id: user.id }],
+		},
+		data: {
+			count: item.count,
+		},
+	});
 
 	return NextResponse.json(result);
 }
 
-export async function POST(req: NextRequest) {
-	const item = (await req.json()) as NewCartItemType;
-	const currentUser = getCurrentUser();
-
-	if (!currentUser.userExists) {
-		return nextResponseUserError;
-	}
-
-	const notExists = await cartItemNotExists(item, currentUser.userRawCond);
-
-	if (notExists) {
-		item.temp_user_id = currentUser.tempUserId;
-		item.user_id = currentUser.userId;
-
-		await prisma.cart.create({ data: item });
-		return NextResponse.json(true);
-	}
-
-	return NextResponse.json(false);
-}
-
-async function cartItemNotExists(item: NewCartItemType, userCond: string) {
-	let notExists = true;
-
-	let rawSql = `
-		SELECT 1
-		FROM cart
-		WHERE 1 = 1
-		AND item_id = '${item.item_id}'
-		${userCond}
-	`;
-
-	notExists = !!(await prisma.$queryRawUnsafe(rawSql));
-
-	return notExists;
-}
+import { CartItemDeletedType } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 
 export async function DELETE(req: NextRequest) {
-	const request = await req.json();
-	const currentUser = getCurrentUser();
+	const item = (await req.json()) as CartItemDeletedType;
+	const user = await getUserAuth();
 
-	if (!currentUser.userExists) {
+	if (!user) {
 		return nextResponseUserError;
 	}
 
-	if (!request.itemId) {
+	if (!item.itemId) {
 		return NextResponse.json({ message: "No item to delete" }, { status: 500 });
 	}
 
-	await prisma.$queryRawUnsafe(`
-		DELETE
-		FROM cart
-		WHERE item_id = '${request.itemId}'
-		${currentUser.userRawCond}
-	`);
+	await prisma.cart.deleteMany({
+		where: {
+			AND: [{ user_id: user.id }, { item_id: item.itemId }],
+		},
+	});
 
 	return NextResponse.json(true);
 }

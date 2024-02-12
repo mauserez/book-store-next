@@ -1,2 +1,3 @@
 import Button from "./button/Button";
-export { Button };
+import { SignOut } from "./sign-out/SignOut";
+export { Button, SignOut };

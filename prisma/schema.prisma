@@ -12,13 +12,13 @@ model user {
   email      String   @unique
   name       String?
   password   String
+  about      String?
   updated_at DateTime @default(now())
 }
 
 model cart {
   id           Int      @id @default(autoincrement())
   user_id      Int?
-  temp_user_id String?
   item_id      String?
   count        Int      @default(0)
   img_url      String?

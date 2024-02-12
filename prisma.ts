@@ -1,13 +1,24 @@
 import { PrismaClient } from "@prisma/client";
-import { cookies } from "next/headers";
+/*
+declare global {
+	var prisma: PrismaClient | undefined;
+}
 
-let prisma: PrismaClient;
+export const prisma =
+	globalThis.prisma ||
+	new PrismaClient({
+		log: ["query", "info", "warn", "error"],
+	}); */
 
-prisma = new PrismaClient({
+const prisma = new PrismaClient({
 	log: ["query", "info", "warn", "error"],
 });
 
+//if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
+
 export default prisma;
+
+import { cookies } from "next/headers";
 
 export const getCurrentUser = () => {
 	const tempUserId = cookies().get("tempUserId")?.value ?? null;

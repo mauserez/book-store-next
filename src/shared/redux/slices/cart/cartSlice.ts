@@ -11,7 +11,6 @@ export type CartItemType = {
 	item_id: string;
 	price: number;
 	user_id: number | null;
-	temp_user_id: string | null;
 	img_url: string | null;
 	title: string | null;
 	description: string;
@@ -75,7 +74,6 @@ export const cartSlice = createAppSlice({
 	selectors: {
 		selectCart: (state) => state.cart,
 		selectCartLen: (state) => {
-			console.log(state.cart);
 			let len = 0;
 			if (state.cart.length > 0) {
 				state.cart.forEach((i) => {

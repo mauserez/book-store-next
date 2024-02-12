@@ -7,7 +7,7 @@ type DeleteCartItemProps = { itemId: string };
 export const DeleteCartItem = (props: DeleteCartItemProps) => {
 	const dispatch = useAppDispatch();
 	const { itemId } = props;
-	console.log(itemId);
+
 	return (
 		<div className={s.removeBtn}>
 			<TrashFill
