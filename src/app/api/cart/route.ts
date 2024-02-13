@@ -1,4 +1,3 @@
-//import prisma from "@/prisma";
 import { supabase } from "@/supabase";
 import { nextResponseUserError } from "@/src/shared/utils/error";
 import { NextResponse } from "next/server";

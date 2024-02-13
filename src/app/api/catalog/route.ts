@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 	params.filter = "paid-ebooks";
 	params.maxResults = 6;
 	params.langRestrict = params.langRestrict ? params.langRestrict : "en";
-	const key = process.env.NEXT_PUBLIC_GBOOKS_KEY2;
+	const key = process.env.GBOOKS_KEY2;
 
 	const paramsUrl = QueryString.stringify(params as Record<string, string>);
 
