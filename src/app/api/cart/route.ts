@@ -10,7 +10,11 @@ export async function GET() {
 		return nextResponseUserError();
 	}
 
-	const result = await supabase.from("cart").select().eq("user_id", user.id);
+	const result = await supabase
+		.from("cart")
+		.select()
+		.eq("user_id", user.id)
+		.order("id");
 
 	return NextResponse.json(result.data);
 }

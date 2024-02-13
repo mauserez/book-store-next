@@ -1,3 +1,5 @@
+"use client";
+
 import { Rating } from "@/src/shared/ui/rating";
 import { numberWithSpaces } from "@/src/shared/utils/number";
 
@@ -5,11 +7,13 @@ import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { CartItemActionButton } from "@/src/entities/cart/ui";
 
 import s from "./ItemInfo.module.css";
+import { useUserAuth } from "@/src/shared/utils/clientSession";
 
 type ItemInfoProps = { item: CatalogItemType };
 export default function ItemInfo(props: ItemInfoProps) {
 	const { item } = props;
 	const { volumeInfo, saleInfo } = item;
+	const user = useUserAuth();
 
 	if (!volumeInfo) {
 		return null;
@@ -44,7 +48,9 @@ export default function ItemInfo(props: ItemInfoProps) {
 				</div>
 			) : null}
 
-			<CartItemActionButton itemId={item.id} catalogItem={item} />
+			{user ? (
+				<CartItemActionButton itemId={item.id} catalogItem={item} />
+			) : null}
 		</div>
 	);
 }

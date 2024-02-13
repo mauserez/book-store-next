@@ -19,7 +19,6 @@ export const clearCart = createAsyncThunk("cart/clearCart", async () => {
 	return api
 		.delete<CartItemType[]>("/cart")
 		.then(() => {
-			console.log("Cart cleared");
 			return true;
 		})
 		.catch((error) => {

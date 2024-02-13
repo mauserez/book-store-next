@@ -51,10 +51,9 @@ export const cartSlice = createAppSlice({
 		builder.addCase(createCartItem.fulfilled, (state) => {
 			state.status = "refreshed";
 		});
-		builder.addCase(createCartItem.rejected, (state) => {
-			console.log("Уже в корзине");
+		/* builder.addCase(createCartItem.rejected, (state) => {
 			state.status = "refreshed";
-		});
+		}); */
 
 		/* +- 1 объект корзины */
 		builder.addCase(toggleCartItemCount.fulfilled, (state) => {

@@ -9,17 +9,18 @@
 	opacity: 0.5;
 }
 
-.bounce {
-	animation-duration: 4s;
-	animation-name: plusMinusBounce;
+.btnClicked {
+	animation-duration: 0.1s;
+	animation-name: clickedScale;
 }
 
-@keyframes plusMinusBounce {
+@keyframes clickedScale {
 	0% {
 		transform: scale(1);
 	}
+
 	50% {
-		transform: scale(2);
+		transform: scale(0.8);
 	}
 
 	100% {
@@ -40,6 +41,7 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 10px 16px;
+	align-items: center;
 }
 
 .plusMinus:hover {

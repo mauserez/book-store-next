@@ -13,11 +13,9 @@ export async function POST(req: NextRequest) {
 
 	if (!searchUser.count) {
 		try {
-			console.log(
-				await supabase
-					.from("user")
-					.insert({ email: email, password: hashedPassword })
-			);
+			await supabase
+				.from("user")
+				.insert({ email: email, password: hashedPassword });
 
 			return NextResponse.json(
 				{ message: "User successfully created" },

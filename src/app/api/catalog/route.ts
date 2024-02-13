@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import QueryString from "qs";
-import { errorText } from "@/src/shared/utils/axios";
 
 export type CatalogApiProps = {
 	q?: string;
@@ -59,8 +58,7 @@ export async function POST(req: NextRequest) {
 			const res = response.data.items;
 			return res ?? [];
 		})
-		.catch((error) => {
-			console.log(errorText(error));
+		.catch(() => {
 			return [];
 		});
 
