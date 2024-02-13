@@ -19,7 +19,7 @@ export default function Info() {
 			<div className={s.info}>
 				<div className={s.block}>
 					<div className={s.title}>YOUR NAME</div>
-					<div className={s.value}>{user?.name}</div>
+					<div className={s.value}>{user.name ?? "Your name"}</div>
 				</div>
 				<div className={s.block}>
 					<div className={s.title}>YOUR EMAIL</div>

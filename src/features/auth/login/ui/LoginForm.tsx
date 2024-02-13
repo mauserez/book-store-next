@@ -18,7 +18,7 @@ const validSchema = Yup.object().shape({
 	email: Yup.string().email("Invalid email").required("Required"),
 	password: Yup.string()
 		.min(6, "Your password must be at least 6 characters long")
-		.required(""),
+		.required("Required"),
 });
 
 type SignType = "login" | "register";
@@ -36,6 +36,7 @@ export type LoginFormFieldsType = {
 export const LoginForm = () => {
 	const [signType, setSignType] = useState<SignType>("login");
 	const [error, setError] = useState("");
+	const [pending, setPending] = useState(false);
 
 	const handleClearError = () => {
 		setError("");
@@ -50,8 +51,11 @@ export const LoginForm = () => {
 				}}
 				validateOnChange={true}
 				validationSchema={validSchema}
-				onSubmit={async (credentials) => {
+				onSubmit={async (credentials, { validateForm }) => {
+					validateForm(credentials);
 					handleClearError();
+					setPending(true);
+
 					if (signType === "login") {
 						const res = await signIn("credentials", {
 							...credentials,
@@ -65,7 +69,7 @@ export const LoginForm = () => {
 						}
 					} else {
 						await api
-							.post(`/${signType}`, credentials)
+							.post(`/register`, credentials)
 							.then(async () => {
 								await signIn("credentials", credentials);
 							})
@@ -73,6 +77,8 @@ export const LoginForm = () => {
 								setError(errorText(error));
 							});
 					}
+
+					setPending(false);
 				}}
 			>
 				{({ errors, touched }) => {
@@ -103,6 +109,7 @@ export const LoginForm = () => {
 							noValidate={true}
 							className={s.form}
 						>
+							{pending ? <div className={s.loader}></div> : null}
 							<div className={s.title}>
 								{Object.entries(signTypes).map(([key, item], i) => {
 									return (

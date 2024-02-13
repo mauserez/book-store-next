@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
 	const searchUser = await supabase.from("user").select().eq("email", email);
 
-	if (!searchUser.count) {
+	if (searchUser.data && searchUser.data.length === 0) {
 		try {
 			await supabase
 				.from("user")
