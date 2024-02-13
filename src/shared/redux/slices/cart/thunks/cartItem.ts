@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { type CartItemType } from "../cartSlice";
 import { CatalogItemType } from "@/src/app/api/catalog/route";
 import { api } from "@/src/shared/axios";
 import { errorText } from "@/src/shared/utils/axios";
+import { Database } from "@/types/supabase";
 
-export type NewCartItemType = Omit<CartItemType, "id">;
+export type NewCartItemType = Database["public"]["Tables"]["cart"]["Insert"];
 
 export const createCartItem = createAsyncThunk(
 	"cart/createCartItem",

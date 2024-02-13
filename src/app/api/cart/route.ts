@@ -1,4 +1,5 @@
-import prisma from "@/prisma";
+//import prisma from "@/prisma";
+import { supabase } from "@/supabase";
 import { nextResponseUserError } from "@/src/shared/utils/error";
 import { NextResponse } from "next/server";
 import { getUserAuth } from "@/src/shared/utils/serverSession";
@@ -10,13 +11,9 @@ export async function GET() {
 		return nextResponseUserError();
 	}
 
-	const result = await prisma.cart.findMany({
-		where: {
-			user_id: user.id,
-		},
-	});
+	const result = await supabase.from("cart").select().eq("user_id", user.id);
 
-	return NextResponse.json(result);
+	return NextResponse.json(result.data);
 }
 
 export async function DELETE() {
@@ -26,11 +23,7 @@ export async function DELETE() {
 		return nextResponseUserError();
 	}
 
-	const cart = await prisma.cart.deleteMany({
-		where: {
-			id: user.id,
-		},
-	});
+	const { data } = await supabase.from("cart").delete().eq("user_id", user.id);
 
-	return NextResponse.json(cart);
+	return NextResponse.json(data);
 }

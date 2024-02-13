@@ -1,10 +1,10 @@
+import { supabase } from "@/supabase";
 import { NextRequest, NextResponse } from "next/server";
 import {
 	NewCartItemType,
 	CartItemCountType,
 } from "@/src/shared/redux/slices/cart/thunks/cartItem";
 
-import prisma from "@/prisma";
 import { nextResponseUserError } from "@/src/shared/utils/error";
 import { getUserAuth } from "@/src/shared/utils/serverSession";
 
@@ -16,21 +16,22 @@ export async function POST(req: NextRequest) {
 		return nextResponseUserError();
 	}
 
-	const exists = await prisma.cart.findFirst({
-		where: {
-			AND: [{ user_id: user.id }, { item_id: item.item_id }],
-		},
-	});
+	item.user_id = user.id;
 
-	if (exists) {
+	const result = await supabase
+		.from("cart")
+		.select()
+		.eq("user_id", user.id)
+		.eq("item_id", item.item_id);
+
+	if (result.data?.length) {
 		return NextResponse.json(
 			{ message: "Item already exists" },
 			{ status: 400 }
 		);
 	}
 
-	item.user_id = user.id;
-	await prisma.cart.create({ data: item });
+	await supabase.from("cart").insert(item);
 
 	return NextResponse.json({ message: "Item added" }, { status: 200 });
 }
@@ -50,14 +51,11 @@ export async function PUT(req: NextRequest) {
 		);
 	}
 
-	await prisma.cart.updateMany({
-		where: {
-			AND: [{ item_id: item.itemId }, { user_id: user.id }],
-		},
-		data: {
-			count: item.count,
-		},
-	});
+	await supabase
+		.from("cart")
+		.update({ count: item.count })
+		.eq("user_id", user.id)
+		.eq("item_id", item.itemId);
 
 	return NextResponse.json({ message: "Item updated" }, { status: 200 });
 }
@@ -76,11 +74,11 @@ export async function DELETE(req: NextRequest) {
 		return NextResponse.json({ message: "No item to delete" }, { status: 500 });
 	}
 
-	await prisma.cart.deleteMany({
-		where: {
-			AND: [{ user_id: user.id }, { item_id: item.itemId }],
-		},
-	});
+	await supabase
+		.from("cart")
+		.delete()
+		.eq("user_id", user.id)
+		.eq("item_id", item.itemId);
 
 	return NextResponse.json(true);
 }

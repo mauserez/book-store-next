@@ -2,25 +2,22 @@ import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 
 import { LoginFormFieldsType } from "@/src/features/auth/login/ui";
-import prisma from "@/prisma";
+import { supabase } from "@/supabase";
 import { somethingGoesWrong } from "@/src/shared/utils/error";
 
 export async function POST(req: NextRequest) {
 	const { email, password }: LoginFormFieldsType = await req.json();
 	const hashedPassword = await bcrypt.hash(password, 10);
 
-	const searchUser = await prisma.user.findFirst({
-		where: { AND: { email: email } },
-	});
+	const searchUser = await supabase.from("user").select().eq("email", email);
 
-	if (!searchUser) {
+	if (!searchUser.count) {
 		try {
-			await prisma.user.create({
-				data: {
-					email: email,
-					password: hashedPassword,
-				},
-			});
+			console.log(
+				await supabase
+					.from("user")
+					.insert({ email: email, password: hashedPassword })
+			);
 
 			return NextResponse.json(
 				{ message: "User successfully created" },

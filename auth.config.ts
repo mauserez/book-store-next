@@ -1,4 +1,4 @@
-import prisma from "@/prisma";
+import { supabase } from "./supabase";
 import bcrypt from "bcrypt";
 
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -22,26 +22,27 @@ export const authOptions: NextAuthOptions = {
 					throw new Error("Please provide all credentials");
 				}
 
-				const user = await prisma.user.findUnique({
-					where: {
-						email: credentials.email,
-					},
-				});
+				const user = await supabase
+					.from("user")
+					.select()
+					.eq("email", credentials.email)
+					.limit(1)
+					.single();
 
-				if (!user) {
+				if (!user.data) {
 					throw new Error("User credentials is not correct");
 				}
 
 				const isPasswordCorrect = await bcrypt.compare(
 					credentials.password,
-					user.password
+					user.data.password
 				);
 
 				if (!isPasswordCorrect) {
 					throw new Error("User credentials is not correct");
 				}
 
-				const { password, ...userWithoutPassword } = user;
+				const { password, ...userWithoutPassword } = user.data;
 
 				return userWithoutPassword as any;
 			},
