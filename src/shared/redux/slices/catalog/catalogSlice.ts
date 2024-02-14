@@ -5,6 +5,7 @@ import { CatalogApiProps, CatalogItemType } from "@/src/app/api/catalog/route";
 import { createAppSlice } from "../../createAppSlice";
 import { type PayloadAction } from "@reduxjs/toolkit";
 import { getBooks } from "./thunks";
+import { removeArrayOfObjDuplicates } from "@/src/shared/utils/array";
 
 export type ApiStatusType =
 	| "idle"
@@ -63,9 +64,16 @@ export const catalogSlice = createAppSlice({
 				state.apiStatus = "nomore";
 			} else {
 				if (action.meta.arg === "loadmore") {
-					state.items = [...state.items, ...action.payload];
+					let items = [...state.items, ...action.payload];
+					state.items = removeArrayOfObjDuplicates<CatalogItemType>(
+						items,
+						"id"
+					);
 				} else {
-					state.items = action.payload;
+					state.items = removeArrayOfObjDuplicates<CatalogItemType>(
+						action.payload,
+						"id"
+					);
 				}
 
 				state.apiStatus = "idle";
