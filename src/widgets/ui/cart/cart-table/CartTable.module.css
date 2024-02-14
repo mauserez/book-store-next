@@ -13,3 +13,20 @@
 		grid-template-columns: 1fr;
 	}
 }
+
+.total {
+	display: flex;
+	flex-direction: column;
+	gap: 19px;
+
+	@media screen and (max-width: 414px) {
+		align-items: center;
+		text-align: center;
+	}
+}
+
+.totalTitle {
+	color: var(--color-black);
+	font-size: 24px;
+	font-weight: 700;
+}

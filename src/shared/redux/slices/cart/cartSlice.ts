@@ -72,6 +72,17 @@ export const cartSlice = createAppSlice({
 	},
 	selectors: {
 		selectCart: (state) => state.cart,
+		selectCartCurrency: (state) => state.cart[0]?.currency ?? "RUB",
+		selectCartPrice: (state) => {
+			let totalPrice = 0;
+			if (state.cart.length > 0) {
+				state.cart.forEach((i) => {
+					totalPrice += i.price * i.count;
+				});
+			}
+
+			return totalPrice.toFixed(2);
+		},
 		selectCartLen: (state) => {
 			let len = 0;
 			if (state.cart.length > 0) {
@@ -86,7 +97,13 @@ export const cartSlice = createAppSlice({
 	},
 });
 
-export const { selectCart, selectCartLen, selectStatus } = cartSlice.selectors;
+export const {
+	selectCart,
+	selectCartLen,
+	selectCartPrice,
+	selectStatus,
+	selectCartCurrency,
+} = cartSlice.selectors;
 
 const cartReducer = cartSlice.reducer;
 

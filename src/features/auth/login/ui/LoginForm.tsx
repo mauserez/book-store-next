@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useOutsideClick } from "@/src/shared/hooks/useOutside";
 import { signIn } from "next-auth/react";
 
 import { api } from "@/src/shared/axios";
@@ -28,12 +29,17 @@ const signTypes = {
 	register: { link: "register", title: "Register" },
 };
 
+export type LoginFormProps = {
+	onOutsideClick?: () => void;
+};
+
 export type LoginFormFieldsType = {
 	email: string;
 	password: string;
 };
 
-export const LoginForm = () => {
+export const LoginForm = (props: LoginFormProps) => {
+	const { onOutsideClick = () => {} } = props;
 	const [signType, setSignType] = useState<SignType>("login");
 	const [error, setError] = useState("");
 	const [pending, setPending] = useState(false);
@@ -41,6 +47,9 @@ export const LoginForm = () => {
 	const handleClearError = () => {
 		setError("");
 	};
+
+	const formRef = useRef(null);
+	useOutsideClick(formRef, onOutsideClick);
 
 	return (
 		<>
@@ -105,6 +114,7 @@ export const LoginForm = () => {
 
 					return (
 						<Form
+							ref={formRef}
 							onChange={handleClearError}
 							noValidate={true}
 							className={s.form}

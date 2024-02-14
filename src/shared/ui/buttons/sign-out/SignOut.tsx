@@ -7,9 +7,7 @@ import s from "./SignOut.module.css";
 export const SignOut = () => {
 	return (
 		<Button
-			onClick={() => {
-				signOut();
-			}}
+			onClick={async () => signOut({ callbackUrl: "/" })}
 			className={s.logOut}
 		>
 			Log out

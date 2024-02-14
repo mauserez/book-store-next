@@ -20,6 +20,11 @@
 	letter-spacing: 0.2px;
 }
 
+.navItemLink {
+	text-decoration: none;
+	color: inherit;
+}
+
 .navItem:hover,
 .navItem:global(.active) {
 	color: var(--color-black);

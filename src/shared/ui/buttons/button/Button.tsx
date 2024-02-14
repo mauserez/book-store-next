@@ -5,15 +5,23 @@ import { LineWave } from "react-loader-spinner";
 import clsx from "clsx";
 
 type ButtonProps = ComponentProps<"button"> & {
-	children: ReactNode;
+	children?: ReactNode;
 	loader?: boolean;
+	text?: string;
 };
 
 export default function Button(props: ButtonProps) {
-	const { className, children, loader = false, ...buttonProps } = props;
+	const {
+		className,
+		children,
+		text = "",
+		loader = false,
+		...buttonProps
+	} = props;
 
 	return (
 		<button {...buttonProps} className={clsx(s.button, className)}>
+			{text}
 			{loader ? <ButtonLoader /> : null}
 			{children}
 		</button>

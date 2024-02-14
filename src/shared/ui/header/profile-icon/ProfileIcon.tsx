@@ -23,7 +23,13 @@ export const ProfileIcon = () => {
 				link={link}
 				src="icons/profile.svg"
 			/>
-			{!auth && !formHidden ? <LoginForm /> : null}
+			{!auth && !formHidden ? (
+				<LoginForm
+					onOutsideClick={() => {
+						setFormHidden(true);
+					}}
+				/>
+			) : null}
 		</div>
 	);
 };
